@@ -8,12 +8,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
   <style>
     :root {
-      --cor-logo: #8B0000; /* Grená ESDICA */
-    }
-
-    .viewer-wrap {
-      position: relative; /* Necessário para posicionar o botão info */
-      width: 100%;
+      --cor-logo: #8B0000; /* Cor Grená do Logo */
     }
 
     #panorama {
@@ -21,38 +16,36 @@
       height: 600px;
     }
 
-    /* Botão 'i' flutuante - Posicionado para alinhar com os controlos nativos */
-    #custom-info-btn {
-      position: absolute;
-      right: 10px;
-      bottom: 10px; /* Alinhado ao fundo */
+    /* Estilo do botão 'i' para se integrar nos controlos do Pannellum */
+    .pnlm-info-btn {
       width: 26px;
       height: 26px;
-      background-color: var(--cor-logo);
-      color: white;
+      background: var(--cor-logo) !important;
       border-radius: 3px;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
+      color: white !important;
       font-family: "Times New Roman", serif;
       font-weight: bold;
       font-style: italic;
       font-size: 18px;
-      cursor: pointer;
-      z-index: 2000; /* Valor alto para ficar acima do Pannellum */
-      border: 1px solid rgba(255,255,255,0.5);
-      box-shadow: 0 1px 2px rgba(0,0,0,0.3);
-      transition: background 0.2s;
+      border: 1px solid rgba(255,255,255,0.4);
+      margin-top: 2px;
+      pointer-events: all !important;
     }
 
-    #custom-info-btn:hover {
-      background-color: #5a0000;
-    }
-
-    /* Sobe os controlos originais do Pannellum para o 'i' caber por baixo */
+    /* Garante que o grupo de botões (zoom e full) se mantém unido e o 'i' fica por baixo */
     .pnlm-controls-container {
-      bottom: 40px !important; 
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-end !important;
     }
+
+    /* Ajuste visual para a modal estar acima de tudo */
+    .modal-backdrop { z-index: 3000 !important; }
+    .video-overlay { z-index: 4000 !important; }
   </style>
 </head>
 <body>
@@ -67,11 +60,10 @@
 
     <section class="viewer-wrap">
       <div id="panorama"></div>
-      <div id="custom-info-btn" title="Informação">i</div>
     </section>
 
     <div class="room-header">
-      <h2>Átrio ...</h2>
+      <h2>Átrio</h2>
       <div><a href="../index.html" class="btn">Voltar</a></div>
     </div>
 
@@ -82,26 +74,34 @@
     </footer>
   </div>
 
-  <div id="modal-backdrop" class="modal-backdrop" role="dialog" aria-hidden="true">
-    <div class="modal" role="document">
-      <button id="modal-close" style="float:right;border:none;background:none;font-size:20px;cursor:pointer">✕</button>
+  <div id="modal-backdrop" class="modal-backdrop" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); align-items:center; justify-content:center;">
+    <div class="modal" style="background:white; padding:20px; border-radius:8px; max-width:500px; width:90%; position:relative;">
+      <button id="modal-close" style="position:absolute; right:10px; top:10px; border:none; background:none; font-size:20px; cursor:pointer">✕</button>
       <h2 id="modal-title">Título</h2>
-      <p id="modal-text">Descrição</p>
+      <p id="modal-text" style="margin: 15px 0;">Descrição</p>
       <div style="text-align:right">
         <button id="modal-video-btn" class="btn">Ver Vídeo</button>
       </div>
     </div>
   </div>
 
-  <div id="video-overlay" class="video-overlay" role="dialog" aria-hidden="true">
-    <button id="video-close" style="position:absolute;z-index:3000;right:14px;top:14px;padding:8px 12px;border-radius:8px;background:rgba(255,255,255,0.9);border:none;cursor:pointer">Fechar</button>
-    <video id="overlay-video" controls playsinline></video>
+  <div id="video-overlay" class="video-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; z-index:5000; align-items:center; justify-content:center;">
+    <button id="video-close" style="position:absolute; right:20px; top:20px; padding:10px 20px; background:white; border:none; border-radius:5px; cursor:pointer; z-index:5100;">Fechar Vídeo</button>
+    <video id="overlay-video" controls style="max-width:90%; max-height:80%;"></video>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
   <script src="../assets/js/script.js"></script>
+  
   <script>
-    // Inicialização do Pannellum
+    // 1. Configuração do Vídeo e Info
+    const infoAtrio = {
+        title: "Átrio",
+        text: "Bem-vindo! Este é o ponto de partida da tua visita virtual. A partir daqui podes explorar os diferentes espaços da escola e descobrir onde os alunos aprendem, criam e convivem. A tua história começa aqui. O campus espera por ti! Preparado...? Um clique… e estás dentro!",
+        video: "../assets/videos/atrio.mp4"
+    };
+
+    // 2. Inicialização do Pannellum
     const viewer = pannellum.viewer('panorama', {
         "type": "equirectangular",
         "panorama": "../assets/panoramas/atrio.jpg",
@@ -109,32 +109,45 @@
         "showControls": true
     });
 
-    // Dados da Modal
-    const infoData = {
-        title: "Átrio",
-        text: "Bem-vindo! Este é o ponto de partida da tua visita virtual. A partir daqui podes explorar os diferentes espaços da escola e descobrir onde os alunos aprendem, criam e convivem. A tua história começa aqui. O campus espera por ti! Preparado...? Um clique… e estás dentro!",
-        video: "../assets/videos/atrio.mp4"
-    };
-
-    // Lógica de Clique Direta
-    document.getElementById('custom-info-btn').addEventListener('click', function() {
-        console.log("Botão clicado!"); // Para veres na consola (F12) se está a funcionar
+    // 3. Inserir o botão 'i' e configurar cliques
+    viewer.on('load', function() {
+        const ctrlContainer = document.querySelector('.pnlm-controls-container');
         
-        if (typeof openModal === 'function') {
-            openModal(infoData.title, infoData.text, infoData.video);
-        } else {
-            // Caso a função no script.js falhe, abrimos manualmente aqui:
-            document.getElementById('modal-title').innerText = infoData.title;
-            document.getElementById('modal-text').innerText = infoData.text;
-            document.getElementById('modal-backdrop').classList.add('active');
-            document.getElementById('modal-backdrop').style.display = 'block';
+        if (ctrlContainer && !document.querySelector('.pnlm-info-btn')) {
+            const infoBtn = document.createElement('div');
+            infoBtn.className = 'pnlm-info-btn';
+            infoBtn.innerHTML = 'i';
+            ctrlContainer.appendChild(infoBtn);
+
+            // Ao clicar no 'i'
+            infoBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                document.getElementById('modal-title').innerText = infoAtrio.title;
+                document.getElementById('modal-text').innerText = infoAtrio.text;
+                document.getElementById('modal-backdrop').style.display = 'flex';
+            });
         }
     });
 
-    // Fechar Modal (Caso o script.js não esteja a lidar com isto)
+    // 4. Lógica do Botão de Vídeo (DENTRO DA MODAL)
+    document.getElementById('modal-video-btn').addEventListener('click', function() {
+        const video = document.getElementById('overlay-video');
+        const overlay = document.getElementById('video-overlay');
+        
+        video.src = infoAtrio.video;
+        overlay.style.display = 'flex';
+        video.play();
+    });
+
+    // 5. Fechar Modal e Vídeo
     document.getElementById('modal-close').onclick = function() {
         document.getElementById('modal-backdrop').style.display = 'none';
-        document.getElementById('modal-backdrop').classList.remove('active');
+    };
+
+    document.getElementById('video-close').onclick = function() {
+        const video = document.getElementById('overlay-video');
+        video.pause();
+        document.getElementById('video-overlay').style.display = 'none';
     };
   </script>
 </body>

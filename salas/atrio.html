@@ -7,46 +7,49 @@
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
   <style>
-    /* Cor baseada no logótipo (Grená/Vinho) */
+    /* Cor do Logótipo ESDICA */
     :root {
-      --cor-logo: #8b0000; 
+      --cor-logo: #8B0000; 
     }
 
     #panorama {
       width: 100%;
       height: 600px;
+      position: relative;
     }
 
-    /* Botão de Informação Fixo abaixo dos controlos do Pannellum */
-    .info-button-fixed {
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-      width: 26px;
-      height: 26px;
-      background-color: var(--cor-logo);
-      color: white;
-      border-radius: 3px; /* Quadrado com cantos arredondados para condizer com Pannellum */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 100;
-      font-family: "Times New Roman", serif;
-      font-weight: bold;
-      font-style: italic;
-      font-size: 16px;
-      box-shadow: 0 0 0 2px rgba(255,255,255,0.7);
-      border: none;
+    /* Estilo para o novo botão 'i' dentro do Pannellum */
+    .pnlm-info-btn {
+        width: 26px;
+        height: 26px;
+        background: var(--cor-logo);
+        position: absolute;
+        bottom: 0; /* Ficará abaixo dos outros no container de controlos */
+        right: 0;
+        border-radius: 3px;
+        cursor: pointer;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-family: "Times New Roman", serif;
+        font-weight: bold;
+        font-style: italic;
+        font-size: 18px;
+        border: 1px solid rgba(255,255,255,0.3);
     }
 
-    .info-button-fixed:hover {
-      background-color: #a00000;
+    .pnlm-info-btn:hover {
+        background-color: #5a0000;
     }
 
-    /* Ajuste para que os botões de zoom do Pannellum não fiquem em cima */
-    .pnlm-controls-container {
-      bottom: 45px !important;
+    /* Ajuste para subir os botões nativos e dar lugar ao 'i' */
+    .pnlm-zoom-controls {
+        margin-bottom: 35px !important;
+    }
+    .pnlm-fullscreen-toggle-button {
+        margin-bottom: 35px !important;
     }
   </style>
 </head>
@@ -60,9 +63,8 @@
       </div>
     </header>
 
-    <section class="viewer-wrap" style="position: relative;">
+    <section class="viewer-wrap">
       <div id="panorama"></div>
-      <button id="btn-info-atrio" class="info-button-fixed" title="Informações">i</button>
     </section>
 
     <div class="room-header">
@@ -71,9 +73,9 @@
     </div>
 
     <footer class="footer">
-      <a href="https://www.aecister.pt" target="_blank" rel="noopener noreferrer">
-        <img src="../assets/images/logo_Agr.png" alt="AECISTER" style="height:30px;">
-      </a>
+        <a href="https://www.aecister.pt" target="_blank" rel="noopener noreferrer">
+          <img src="../assets/images/logo_Agr.png" alt="AECISTER" style="height:30px;">
+        </a>
     </footer>
   </div>
 
@@ -96,21 +98,38 @@
   <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
   <script src="../assets/js/script.js"></script>
   <script>
-    // Configurações do Átrio
-    const infoData = {
-      title: "Átrio",
-      text: "Bem-vindo! Este é o ponto de partida da tua visita virtual. A partir daqui podes explorar os diferentes espaços da escola e descobrir onde os alunos aprendem, criam e convivem. A tua história começa aqui. O campus espera por ti! Preparado...? Um clique… e estás dentro!",
-      video: "../assets/videos/atrio.mp4"
-    };
-
-    // Inicia o visualizador sem hotspots (já que o botão é fixo)
+    // 1. Inicializa o visualizador normalmente
     initViewer("../assets/panoramas/atrio.jpg", []);
 
-    // Evento do botão de informação
-    document.getElementById('btn-info-atrio').addEventListener('click', function() {
-      if (typeof openModal === 'function') {
-        openModal(infoData.title, infoData.text, infoData.video);
-      }
+    // 2. Criação dinâmica do botão para garantir que ele aparece e funciona
+    window.addEventListener('load', function() {
+        const ctrlContainer = document.querySelector('.pnlm-controls-container');
+        
+        if (ctrlContainer) {
+            const infoBtn = document.createElement('div');
+            infoBtn.className = 'pnlm-info-btn';
+            infoBtn.innerHTML = 'i';
+            infoBtn.title = 'Informação do Espaço';
+            
+            // Adiciona o botão ao contentor de controlos do Pannellum
+            ctrlContainer.appendChild(infoBtn);
+
+            // Dados da modal
+            const info = {
+                title: "Átrio",
+                text: "Bem-vindo! Este é o ponto de partida da tua visita virtual. A partir daqui podes explorar os diferentes espaços da escola e descobrir onde os alunos aprendem, criam e convivem. A tua história começa aqui. O campus espera por ti! Preparado...? Um clique… e estás dentro!",
+                video: "../assets/videos/atrio.mp4"
+            };
+
+            // Evento de clique corrigido
+            infoBtn.addEventListener('click', function() {
+                if (typeof openModal === 'function') {
+                    openModal(info.title, info.text, info.video);
+                } else {
+                    console.error("Função openModal não encontrada no script.js");
+                }
+            });
+        }
     });
   </script>
 </body>

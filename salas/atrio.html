@@ -11,40 +11,47 @@
       --cor-logo: #8B0000; /* Grená ESDICA */
     }
 
+    .viewer-wrap {
+      position: relative; /* Necessário para posicionar o botão info */
+      width: 100%;
+    }
+
     #panorama {
       width: 100%;
       height: 600px;
     }
 
-    /* Estilo do botão 'i' para parecer nativo do Pannellum */
-    .pnlm-info-btn {
+    /* Botão 'i' flutuante - Posicionado para alinhar com os controlos nativos */
+    #custom-info-btn {
+      position: absolute;
+      right: 10px;
+      bottom: 10px; /* Alinhado ao fundo */
       width: 26px;
       height: 26px;
-      background: var(--cor-logo);
+      background-color: var(--cor-logo);
+      color: white;
       border-radius: 3px;
-      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
       font-family: "Times New Roman", serif;
       font-weight: bold;
       font-style: italic;
-      font-size: 16px;
-      border: 1px solid rgba(255,255,255,0.3);
-      margin-top: 2px; /* Espaço pequeno entre o botão de zoom e o 'i' */
-      pointer-events: auto !important; /* Garante que o clique funciona */
+      font-size: 18px;
+      cursor: pointer;
+      z-index: 2000; /* Valor alto para ficar acima do Pannellum */
+      border: 1px solid rgba(255,255,255,0.5);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+      transition: background 0.2s;
     }
 
-    .pnlm-info-btn:hover {
+    #custom-info-btn:hover {
       background-color: #5a0000;
     }
 
-    /* Mantém o grupo de controlos original unido */
+    /* Sobe os controlos originais do Pannellum para o 'i' caber por baixo */
     .pnlm-controls-container {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
+      bottom: 40px !important; 
     }
   </style>
 </head>
@@ -60,17 +67,18 @@
 
     <section class="viewer-wrap">
       <div id="panorama"></div>
+      <div id="custom-info-btn" title="Informação">i</div>
     </section>
 
     <div class="room-header">
-      <h2>...</h2>
+      <h2>Átrio ...</h2>
       <div><a href="../index.html" class="btn">Voltar</a></div>
     </div>
 
     <footer class="footer">
-        <a href="https://www.aecister.pt" target="_blank" rel="noopener noreferrer">
-          <img src="../assets/images/logo_Agr.png" alt="AECISTER" style="height:30px;">
-        </a>
+      <a href="https://www.aecister.pt" target="_blank" rel="noopener noreferrer">
+        <img src="../assets/images/logo_Agr.png" alt="AECISTER" style="height:30px;">
+      </a>
     </footer>
   </div>
 
@@ -86,14 +94,14 @@
   </div>
 
   <div id="video-overlay" class="video-overlay" role="dialog" aria-hidden="true">
-    <button id="video-close" style="position:absolute;z-index:130;right:14px;top:14px;padding:8px 12px;border-radius:8px;background:rgba(255,255,255,0.9);border:none;cursor:pointer">Fechar</button>
+    <button id="video-close" style="position:absolute;z-index:3000;right:14px;top:14px;padding:8px 12px;border-radius:8px;background:rgba(255,255,255,0.9);border:none;cursor:pointer">Fechar</button>
     <video id="overlay-video" controls playsinline></video>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
   <script src="../assets/js/script.js"></script>
   <script>
-    // Inicializa o viewer
+    // Inicialização do Pannellum
     const viewer = pannellum.viewer('panorama', {
         "type": "equirectangular",
         "panorama": "../assets/panoramas/atrio.jpg",
@@ -101,34 +109,33 @@
         "showControls": true
     });
 
-    // Função para injetar o botão 'i' logo abaixo dos controlos
-    viewer.on('load', function() {
-        const ctrlContainer = document.querySelector('.pnlm-controls-container');
+    // Dados da Modal
+    const infoData = {
+        title: "Átrio",
+        text: "Bem-vindo! Este é o ponto de partida da tua visita virtual. A partir daqui podes explorar os diferentes espaços da escola e descobrir onde os alunos aprendem, criam e convivem. A tua história começa aqui. O campus espera por ti! Preparado...? Um clique… e estás dentro!",
+        video: "../assets/videos/atrio.mp4"
+    };
+
+    // Lógica de Clique Direta
+    document.getElementById('custom-info-btn').addEventListener('click', function() {
+        console.log("Botão clicado!"); // Para veres na consola (F12) se está a funcionar
         
-        if (ctrlContainer && !document.querySelector('.pnlm-info-btn')) {
-            const infoBtn = document.createElement('div');
-            infoBtn.className = 'pnlm-info-btn';
-            infoBtn.innerHTML = 'i';
-            
-            // Injeta o botão no contentor de controlos
-            ctrlContainer.appendChild(infoBtn);
-
-            const info = {
-                title: "Átrio",
-                text: "Bem-vindo! Este é o ponto de partida da tua visita virtual. A partir daqui podes explorar os diferentes espaços da escola e descobrir onde os alunos aprendem, criam e convivem. A tua história começa aqui. O campus espera por ti! Preparado...? Um clique… e estás dentro!",
-                video: "../assets/videos/atrio.mp4"
-            };
-
-            // Usamos 'mousedown' ou 'click' com stopPropagation para garantir que a modal abre
-            infoBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation(); // Impede o Pannellum de ignorar o clique
-                if (typeof openModal === 'function') {
-                    openModal(info.title, info.text, info.video);
-                }
-            });
+        if (typeof openModal === 'function') {
+            openModal(infoData.title, infoData.text, infoData.video);
+        } else {
+            // Caso a função no script.js falhe, abrimos manualmente aqui:
+            document.getElementById('modal-title').innerText = infoData.title;
+            document.getElementById('modal-text').innerText = infoData.text;
+            document.getElementById('modal-backdrop').classList.add('active');
+            document.getElementById('modal-backdrop').style.display = 'block';
         }
     });
+
+    // Fechar Modal (Caso o script.js não esteja a lidar com isto)
+    document.getElementById('modal-close').onclick = function() {
+        document.getElementById('modal-backdrop').style.display = 'none';
+        document.getElementById('modal-backdrop').classList.remove('active');
+    };
   </script>
 </body>
 </html>

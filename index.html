@@ -12,95 +12,110 @@
     :root {
       --aec-red: #8b0000;
       --aec-gray-light: #f8f9fa;
-      --aec-gray-border: #eee;
+      --aec-gray-border: #ddd;
       --text-dark: #444;
     }
 
-    /* Header Clean */
     .header { 
       border-bottom: 1px solid var(--aec-gray-border); 
-      margin-bottom: 30px; 
-      padding-bottom: 20px;
+      margin-bottom: 25px; 
+      padding-bottom: 15px;
     }
     .title { color: var(--aec-red); font-weight: 700; }
 
-    /* Grelha de Grupos Quadrados */
-    .categories-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
+    /* Contentor de cada Bloco */
+    .category-block {
+      margin-bottom: 15px;
       padding: 0 10px;
-      margin-bottom: 20px;
     }
 
-    .category-item {
-      display: flex;
-      flex-direction: column;
-    }
-
+    /* Botão Quadrado - Começa VERMELHO */
     .cat-btn {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      aspect-ratio: 1 / 1; /* Força o formato quadrado */
-      background: #ffffff;
-      border: 1px solid var(--aec-gray-border);
+      width: 100%; /* No mobile ocupa a largura, mas mantém proporção visual */
+      min-height: 110px;
+      background-color: var(--aec-red);
+      border: 1px solid var(--aec-red);
       border-radius: 12px;
       cursor: pointer;
       transition: all 0.3s ease;
-      padding: 15px;
+      position: relative;
     }
 
-    .cat-btn i { 
+    .cat-btn i.main-icon { 
       font-size: 2rem; 
-      color: var(--aec-red); 
-      margin-bottom: 12px;
+      color: #ffffff; 
+      margin-bottom: 8px;
       transition: color 0.3s;
     }
     
     .cat-btn span { 
       font-weight: 500; 
       font-size: 0.95rem; 
-      color: var(--text-dark);
+      color: #ffffff;
       text-align: center;
-      line-height: 1.2;
+      transition: color 0.3s;
     }
 
-    /* Estado Ativo */
+    /* A Seta de Indicação */
+    .chevron {
+      position: absolute;
+      right: 15px;
+      bottom: 15px;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.7);
+      transition: transform 0.3s ease, color 0.3s;
+    }
+
+    /* ESTADO ATIVO: Branco com contorno vermelho */
     .cat-btn.active {
-      background-color: var(--aec-red);
+      background-color: #ffffff;
       border-color: var(--aec-red);
-      box-shadow: 0 4px 12px rgba(139, 0, 0, 0.2);
     }
-    .cat-btn.active i, .cat-btn.active span { color: #ffffff; }
+    .cat-btn.active i.main-icon, 
+    .cat-btn.active span,
+    .cat-btn.active .chevron { 
+      color: var(--aec-red); 
+    }
 
-    /* Contentor de Itens (Ocupa a largura total abaixo da grelha) */
+    .cat-btn.active .chevron {
+      transform: rotate(180deg);
+    }
+
+    /* Contentor de Itens - Logo abaixo do botão */
     .category-content {
       display: none;
-      grid-column: 1 / -1; /* Faz o conteúdo ocupar as duas colunas */
-      padding: 25px 10px;
+      padding: 20px 10px;
       background: var(--aec-gray-light);
-      border-radius: 12px;
-      margin-top: 15px;
-      animation: fadeIn 0.4s ease;
+      border-radius: 0 0 12px 12px;
+      margin-top: -5px; /* "Cola" o conteúdo ao botão */
+      border: 1px solid var(--aec-gray-border);
+      border-top: none;
+      animation: slideDown 0.3s ease-out;
     }
 
     .category-content.active {
       display: block;
     }
 
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideDown { 
+      from { opacity: 0; transform: translateY(-10px); } 
+      to { opacity: 1; transform: translateY(0); } 
+    }
 
-    /* Ajuste da Grid de Salas */
+    /* Grid de Salas */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 15px;
     }
 
-    @media (max-width: 400px) {
-      .cat-btn span { font-size: 0.85rem; }
+    /* Ajuste para Desktop (mantém botões quadrados menores) */
+    @media (min-width: 600px) {
+      .cat-btn { width: 160px; height: 160px; margin: 0 auto; }
     }
   </style>
 </head>
@@ -115,35 +130,12 @@
     </header>
 
     <main>
-      <div class="categories-grid">
-        <div class="category-item">
-          <div class="cat-btn" data-target="entrada">
-            <i class="fa-solid fa-map-location-dot"></i>
-            <span>Entrada e serviços</span>
-          </div>
+      <div class="category-block">
+        <div class="cat-btn" data-target="entrada">
+          <i class="fa-solid fa-map-location-dot main-icon"></i>
+          <span>Entrada e serviços</span>
+          <i class="fa-solid fa-chevron-down chevron"></i>
         </div>
-
-        <div class="category-item">
-          <div class="cat-btn" data-target="salas">
-            <i class="fa-solid fa-chalkboard-user"></i>
-            <span>Salas e laboratórios</span>
-          </div>
-        </div>
-
-        <div class="category-item">
-          <div class="cat-btn" data-target="social">
-            <i class="fa-solid fa-utensils"></i>
-            <span>Convívio e lazer</span>
-          </div>
-        </div>
-
-        <div class="category-item">
-          <div class="cat-btn" data-target="desporto">
-            <i class="fa-solid fa-medal"></i>
-            <span>Desporto e exterior</span>
-          </div>
-        </div>
-
         <div id="entrada" class="category-content">
           <div class="grid">
             <a class="card" href="salas/atrio.html"><div class="icon"><i class="fa-solid fa-school"></i></div><div><h3>Átrio</h3><p>Início da visita.</p></div></a>
@@ -151,7 +143,14 @@
             <a class="card" href="salas/biblioteca.html"><div class="icon"><i class="fa-solid fa-book-open"></i></div><div><h3>Biblioteca</h3><p>Estudo.</p></div></a>
           </div>
         </div>
+      </div>
 
+      <div class="category-block">
+        <div class="cat-btn" data-target="salas">
+          <i class="fa-solid fa-chalkboard-user main-icon"></i>
+          <span>Salas e laboratórios</span>
+          <i class="fa-solid fa-chevron-down chevron"></i>
+        </div>
         <div id="salas" class="category-content">
           <div class="grid">
             <a class="card" href="salas/salas.html"><div class="icon"><i class="fa-solid fa-user-graduate"></i></div><div><h3>Salas de aula</h3><p>Ensino geral.</p></div></a>
@@ -162,59 +161,15 @@
             <a class="card" href="salas/salas-cte.html"><div class="icon"><i class="fa-solid fa-microchip"></i></div><div><h3>Salas CTE</h3><p>Tecnologia.</p></div></a>
           </div>
         </div>
+      </div>
 
+      <div class="category-block">
+        <div class="cat-btn" data-target="social">
+          <i class="fa-solid fa-utensils main-icon"></i>
+          <span>Convívio e lazer</span>
+          <i class="fa-solid fa-chevron-down chevron"></i>
+        </div>
         <div id="social" class="category-content">
           <div class="grid">
             <a class="card" href="salas/bar.html"><div class="icon"><i class="fa-solid fa-mug-hot"></i></div><div><h3>Bar</h3><p>Café.</p></div></a>
-            <a class="card" href="salas/cantina.html"><div class="icon"><i class="fa-solid fa-utensils"></i></div><div><h3>Cantina</h3><p>Almoços.</p></div></a>
-            <a class="card" href="salas/auditorio.html"><div class="icon"><i class="fa-solid fa-microphone-lines"></i></div><div><h3>Auditório</h3><p>Eventos.</p></div></a>
-          </div>
-        </div>
-
-        <div id="desporto" class="category-content">
-          <div class="grid">
-            <a class="card" href="salas/ginasio.html"><div class="icon"><i class="fa-solid fa-dumbbell"></i></div><div><h3>Ginásio</h3><p>Educação Física.</p></div></a>
-            <a class="card" href="salas/campos.html"><div class="icon"><i class="fa-solid fa-tree"></i></div><div><h3>Campos</h3><p>Exterior.</p></div></a>
-            <a class="card" href="salas/campo-polidesportivo.html"><div class="icon"><i class="fa-solid fa-basketball"></i></div><div><h3>Polidesportivo</h3><p>Jogos.</p></div></a>
-          </div>
-        </div>
-      </div>
-
-      <footer class="footer">
-        <a href="https://www.aecister.pt" target="_blank">
-          <img src="assets/images/logo_Agr.png" alt="AECISTER" style="height:40px;">
-        </a>
-      </footer>
-    </main>
-  </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const buttons = document.querySelectorAll('.cat-btn');
-      const contents = document.querySelectorAll('.category-content');
-
-      buttons.forEach(btn => {
-        btn.addEventListener('click', function() {
-          const targetId = this.getAttribute('data-target');
-          const targetContent = document.getElementById(targetId);
-          const wasActive = this.classList.contains('active');
-
-          // Limpa tudo
-          buttons.forEach(b => b.classList.remove('active'));
-          contents.forEach(c => c.classList.remove('active'));
-
-          // Se não estava ativo, abre. Se estava, fecha.
-          if (!wasActive) {
-            this.classList.add('active');
-            targetContent.classList.add('active');
-            
-            setTimeout(() => {
-              targetContent.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }, 100);
-          }
-        });
-      });
-    });
-  </script>
-</body>
-</html>
+            <a class="card" href="salas/cantina.html"><div class="icon"><i class="fa-solid fa-utensils"></i></div><div><h3>Cant

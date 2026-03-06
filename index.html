@@ -32,7 +32,7 @@
     .title { color: var(--aec-red); font-weight: 700; font-size: 1.2rem; margin: 0; line-height: 1.1; }
     .subtitle { font-size: 0.8rem; color: #777; margin: 0; }
 
-    /* Botão Voltar ao Topo */
+    /* Botão Voltar ao Topo (Semi-transparente) */
     #backToTop {
       position: fixed;
       bottom: 20px;
@@ -49,9 +49,12 @@
       justify-content: center;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
       z-index: 1000;
+      opacity: 0.6; /* Subtil */
+      transition: opacity 0.3s;
     }
+    #backToTop:hover { opacity: 1; }
 
-    /* Estrutura das Categorias - BOTÕES AJUSTADOS */
+    /* Estrutura das Categorias */
     .category-block { margin-bottom: 12px; padding: 0 10px; }
 
     .cat-btn {
@@ -60,7 +63,7 @@
       align-items: center;
       justify-content: center;
       width: 100%;
-      min-height: 95px; /* Tamanho intermédio ajustado */
+      min-height: 95px; 
       background-color: var(--aec-red);
       border: 1px solid var(--aec-red);
       border-radius: 12px;
@@ -81,7 +84,7 @@
       transition: transform 0.3s; 
     }
 
-    /* Estado Ativo */
+    /* Estado Ativo: Inversão de cores */
     .cat-btn.active { background-color: #ffffff; border-color: var(--aec-red); }
     .cat-btn.active i.main-icon, .cat-btn.active span, .cat-btn.active .chevron { color: var(--aec-red); }
     .cat-btn.active .chevron { transform: rotate(180deg); }
@@ -126,7 +129,7 @@
       <div class="category-block">
         <div class="cat-btn" data-target="entrada">
           <i class="fa-solid fa-map-location-dot main-icon"></i>
-          <span>Entrada e serviços</span>
+          <span>entrada e serviços</span>
           <i class="fa-solid fa-chevron-down chevron"></i>
         </div>
         <div id="entrada" class="category-content">
@@ -141,14 +144,47 @@
       <div class="category-block">
         <div class="cat-btn" data-target="salas">
           <i class="fa-solid fa-chalkboard-user main-icon"></i>
-          <span>Salas e laboratórios</span>
+          <span>salas e laboratórios</span>
           <i class="fa-solid fa-chevron-down chevron"></i>
         </div>
         <div id="salas" class="category-content">
           <div class="grid">
-            <a class="card" href="salas/salas.html"><div class="icon"><i class="fa-solid fa-user-graduate"></i></div><div><h3>Salas de aula</h3><p>Geral.</p></div></a>
-            <a class="card" href="salas/laboratorio-fq.html"><div class="icon"><i class="fa-solid fa-flask"></i></div><div><h3>Lab FQ</h3><p>Ciência.</p></div></a>
-            <a class="card" href="salas/laboratorio-cn.html"><div class="icon"><i class="fa-solid fa-microscope"></i></div><div><h3>Lab CN</h3><p>Natureza.</p></div></a>
+            <a class="card" href="salas/salas.html"><div class="icon"><i class="fa-solid fa-user-graduate"></i></div><div><h3>Salas de aula</h3><p>Ensino geral.</p></div></a>
+            <a class="card" href="salas/laboratorio-fq.html"><div class="icon"><i class="fa-solid fa-flask"></i></div><div><h3>Laboratório FQ</h3><p>Ciência.</p></div></a>
+            <a class="card" href="salas/laboratorio-cn.html"><div class="icon"><i class="fa-solid fa-microscope"></i></div><div><h3>Laboratório CN</h3><p>Natureza.</p></div></a>
+            <a class="card" href="salas/oficina-informatica.html"><div class="icon"><i class="fa-solid fa-computer"></i></div><div><h3>Oficina Info</h3><p>Hardware.</p></div></a>
+            <a class="card" href="salas/oficina-multimedia.html"><div class="icon"><i class="fa-solid fa-photo-film"></i></div><div><h3>Oficina Multimédia</h3><p>Artes.</p></div></a>
+            <a class="card" href="salas/salas-cte.html"><div class="icon"><i class="fa-solid fa-microchip"></i></div><div><h3>Salas CTE</h3><p>Tecnologia.</p></div></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-block">
+        <div class="cat-btn" data-target="social">
+          <i class="fa-solid fa-utensils main-icon"></i>
+          <span>convívio e lazer</span>
+          <i class="fa-solid fa-chevron-down chevron"></i>
+        </div>
+        <div id="social" class="category-content">
+          <div class="grid">
+            <a class="card" href="salas/bar.html"><div class="icon"><i class="fa-solid fa-mug-hot"></i></div><div><h3>Bar</h3><p>Café.</p></div></a>
+            <a class="card" href="salas/cantina.html"><div class="icon"><i class="fa-solid fa-utensils"></i></div><div><h3>Cantina</h3><p>Almoços.</p></div></a>
+            <a class="card" href="salas/auditorio.html"><div class="icon"><i class="fa-solid fa-microphone-lines"></i></div><div><h3>Auditório</h3><p>Eventos.</p></div></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-block">
+        <div class="cat-btn" data-target="desporto">
+          <i class="fa-solid fa-medal main-icon"></i>
+          <span>desporto e exterior</span>
+          <i class="fa-solid fa-chevron-down chevron"></i>
+        </div>
+        <div id="desporto" class="category-content">
+          <div class="grid">
+            <a class="card" href="salas/ginasio.html"><div class="icon"><i class="fa-solid fa-dumbbell"></i></div><div><h3>Ginásio</h3><p>Educação Física.</p></div></a>
+            <a class="card" href="salas/campos.html"><div class="icon"><i class="fa-solid fa-tree"></i></div><div><h3>Campos</h3><p>Exterior.</p></div></a>
+            <a class="card" href="salas/campo-polidesportivo.html"><div class="icon"><i class="fa-solid fa-basketball"></i></div><div><h3>Polidesportivo</h3><p>Jogos.</p></div></a>
           </div>
         </div>
       </div>

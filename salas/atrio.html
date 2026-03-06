@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Átrio — ESDICA 360</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+  <style>
+    /* Cor baseada no logótipo (Grená/Vinho) */
+    :root {
+      --cor-logo: #8b0000; 
+    }
+
+    #panorama {
+      width: 100%;
+      height: 600px;
+    }
+
+    /* Botão de Informação Fixo abaixo dos controlos do Pannellum */
+    .info-button-fixed {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 26px;
+      height: 26px;
+      background-color: var(--cor-logo);
+      color: white;
+      border-radius: 3px; /* Quadrado com cantos arredondados para condizer com Pannellum */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 100;
+      font-family: "Times New Roman", serif;
+      font-weight: bold;
+      font-style: italic;
+      font-size: 16px;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.7);
+      border: none;
+    }
+
+    .info-button-fixed:hover {
+      background-color: #a00000;
+    }
+
+    /* Ajuste para que os botões de zoom do Pannellum não fiquem em cima */
+    .pnlm-controls-container {
+      bottom: 45px !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <a href="../index.html"><img src="../assets/images/logo.png" alt="Logo" class="logo"/></a>
+      <div>
+        <div class="title">ESDICA 360</div>
+        <div class="subtitle">Átrio</div>
+      </div>
+    </header>
+
+    <section class="viewer-wrap" style="position: relative;">
+      <div id="panorama"></div>
+      <button id="btn-info-atrio" class="info-button-fixed" title="Informações">i</button>
+    </section>
+
+    <div class="room-header">
+      <h2>Átrio</h2>
+      <div><a href="../index.html" class="btn">Voltar</a></div>
+    </div>
+
+    <footer class="footer">
+      <a href="https://www.aecister.pt" target="_blank" rel="noopener noreferrer">
+        <img src="../assets/images/logo_Agr.png" alt="AECISTER" style="height:30px;">
+      </a>
+    </footer>
+  </div>
+
+  <div id="modal-backdrop" class="modal-backdrop" role="dialog" aria-hidden="true">
+    <div class="modal" role="document">
+      <button id="modal-close" style="float:right;border:none;background:none;font-size:20px;cursor:pointer">✕</button>
+      <h2 id="modal-title">Título</h2>
+      <p id="modal-text">Descrição</p>
+      <div style="text-align:right">
+        <button id="modal-video-btn" class="btn">Ver Vídeo</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="video-overlay" class="video-overlay" role="dialog" aria-hidden="true">
+    <button id="video-close" style="position:absolute;z-index:130;right:14px;top:14px;padding:8px 12px;border-radius:8px;background:rgba(255,255,255,0.9);border:none;cursor:pointer">Fechar</button>
+    <video id="overlay-video" controls playsinline></video>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+  <script src="../assets/js/script.js"></script>
+  <script>
+    // Configurações do Átrio
+    const infoData = {
+      title: "Átrio",
+      text: "Bem-vindo! Este é o ponto de partida da tua visita virtual. A partir daqui podes explorar os diferentes espaços da escola e descobrir onde os alunos aprendem, criam e convivem. A tua história começa aqui. O campus espera por ti! Preparado...? Um clique… e estás dentro!",
+      video: "../assets/videos/atrio.mp4"
+    };
+
+    // Inicia o visualizador sem hotspots (já que o botão é fixo)
+    initViewer("../assets/panoramas/atrio.jpg", []);
+
+    // Evento do botão de informação
+    document.getElementById('btn-info-atrio').addEventListener('click', function() {
+      if (typeof openModal === 'function') {
+        openModal(infoData.title, infoData.text, infoData.video);
+      }
+    });
+  </script>
+</body>
+</html>

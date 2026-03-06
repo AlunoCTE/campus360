@@ -16,24 +16,60 @@
       --text-dark: #444;
     }
 
-    /* Header Horizontal Compacto */
+    /* Header Ultra-Compacto Vertical */
     .header { 
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      text-align: center;
       border-bottom: 1px solid var(--aec-gray-border); 
-      margin-bottom: 20px; 
-      padding: 10px 0;
-      gap: 15px;
+      margin-bottom: 15px; 
+      padding: 8px 0; /* Padding reduzido */
     }
     
-    .logo { height: 45px; width: auto; }
-    .title { color: var(--aec-red); font-weight: 700; font-size: 1.3rem; margin: 0; line-height: 1; }
-    .subtitle { font-size: 0.85rem; color: #777; margin: 0; }
+    .logo { 
+      height: 40px; /* Reduzido para poupar espaço */
+      width: auto;
+      margin-bottom: 2px; /* Espaço mínimo entre logo e título */
+    }
 
-    /* Blocos de Categoria */
-    .category-block { margin-bottom: 12px; padding: 0 10px; }
+    .title { 
+      color: var(--aec-red); 
+      font-weight: 700; 
+      font-size: 1.25rem; 
+      margin: 0; 
+      line-height: 1.1; 
+    }
+
+    .subtitle { 
+      font-size: 0.8rem; 
+      color: #777; 
+      margin: 0; 
+      line-height: 1;
+    }
+
+    /* Botão Voltar ao Topo */
+    #backToTop {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      background-color: var(--aec-red);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
+    /* Estrutura das Categorias */
+    .category-block { margin-bottom: 10px; padding: 0 10px; }
 
     .cat-btn {
       display: flex;
@@ -41,18 +77,18 @@
       align-items: center;
       justify-content: center;
       width: 100%;
-      min-height: 90px;
+      min-height: 85px; /* Altura reduzida para caber mais no ecrã */
       background-color: var(--aec-red);
       border: 1px solid var(--aec-red);
-      border-radius: 12px;
+      border-radius: 10px;
       cursor: pointer;
       transition: all 0.3s ease;
       position: relative;
     }
 
-    .cat-btn i.main-icon { font-size: 1.6rem; color: #ffffff; margin-bottom: 5px; }
-    .cat-btn span { font-weight: 500; font-size: 0.9rem; color: #ffffff; }
-    .chevron { position: absolute; right: 15px; bottom: 10px; font-size: 0.7rem; color: rgba(255,255,255,0.6); transition: transform 0.3s; }
+    .cat-btn i.main-icon { font-size: 1.5rem; color: #ffffff; margin-bottom: 4px; }
+    .cat-btn span { font-weight: 500; font-size: 0.85rem; color: #ffffff; }
+    .chevron { position: absolute; right: 12px; bottom: 8px; font-size: 0.65rem; color: rgba(255,255,255,0.6); transition: transform 0.3s; }
 
     /* Estado Ativo */
     .cat-btn.active { background-color: #ffffff; border-color: var(--aec-red); }
@@ -63,43 +99,21 @@
       display: none;
       padding: 15px 10px;
       background: var(--aec-gray-light);
-      border-radius: 0 0 12px 12px;
+      border-radius: 0 0 10px 10px;
       margin-top: -5px;
       border: 1px solid var(--aec-gray-border);
       border-top: none;
-      animation: slideDown 0.3s ease-out;
+      animation: slideDown 0.2s ease-out;
     }
     .category-content.active { display: block; }
-    @keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; } }
+    @keyframes slideDown { from { opacity: 0; } to { opacity: 1; } }
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
-
-    /* Botão Voltar ao Topo */
-    #backToTop {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 45px;
-      height: 45px;
-      background-color: var(--aec-red);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none; /* Escondido por padrão */
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      z-index: 1000;
-      transition: opacity 0.3s, transform 0.3s;
-    }
-    #backToTop:hover { transform: scale(1.1); background-color: #600000; }
-
-    .footer { display: flex; justify-content: center; padding: 20px 0; }
-    .footer img { height: 20px; opacity: 0.5; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
+    .footer { display: flex; justify-content: center; padding: 15px 0; }
+    .footer img { height: 18px; opacity: 0.5; }
 
     @media (min-width: 600px) {
-      .cat-btn { width: 150px; height: 150px; margin: 0 auto; }
+      .cat-btn { width: 140px; height: 140px; margin: 0 auto; }
     }
   </style>
 </head>
@@ -112,10 +126,8 @@
   <div class="container">
     <header class="header">
       <img src="assets/images/logo.png" alt="Logo ESDICA" class="logo"/>
-      <div>
-        <h1 class="title">ESDICA 360</h1>
-        <p class="subtitle">Visita virtual interativa</p>
-      </div>
+      <h1 class="title">ESDICA 360</h1>
+      <p class="subtitle">Visita virtual interativa</p>
     </header>
 
     <main>
@@ -175,8 +187,8 @@
         </div>
         <div id="desporto" class="category-content">
           <div class="grid">
-            <a class="card" href="salas/ginasio.html"><div class="icon"><i class="fa-solid fa-dumbbell"></i></div><div><h3>Ginásio</h3><p>Educação Física.</p></div></a>
-            <a class="card" href="salas/campos.html"><div class="icon"><i class="fa-solid fa-tree"></i></div><div><h3>Campos</h3><p>Ar livre.</p></div></a>
+            <a class="card" href="salas/ginasio.html"><div class="icon"><i class="fa-solid fa-dumbbell"></i></div><div><h3>Ginásio</h3><p>Ed. Física.</p></div></a>
+            <a class="card" href="salas/campos.html"><div class="icon"><i class="fa-solid fa-tree"></i></div><div><h3>Campos</h3><p>Exterior.</p></div></a>
           </div>
         </div>
       </div>
@@ -190,7 +202,6 @@
   </div>
 
   <script>
-    // Mostrar/Esconder botão de voltar ao topo
     const btt = document.getElementById("backToTop");
     window.onscroll = function() {
       if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
@@ -199,12 +210,10 @@
         btt.style.display = "none";
       }
     };
-
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Lógica das categorias
     document.addEventListener('DOMContentLoaded', function() {
       const buttons = document.querySelectorAll('.cat-btn');
       buttons.forEach(btn => {

@@ -11,77 +11,81 @@
   <style>
     :root {
       --aec-red: #8b0000;
-      --aec-gold: #c5a059;
-      --bg-light: #f4f4f4;
+      --aec-gray-light: #f5f5f5;
+      --aec-gray-border: #e0e0e0;
       --text-dark: #333333;
     }
 
-    /* Header */
-    .header { border-bottom: 4px solid var(--aec-gold); margin-bottom: 20px; }
+    /* Ajuste Header */
+    .header { border-bottom: 2px solid var(--aec-gray-border); margin-bottom: 20px; }
     .title { color: var(--aec-red); }
 
-    /* Layout de Categorias */
-    .categories-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      padding: 10px;
+    /* Estrutura de Grupos */
+    .category-group {
+      margin-bottom: 15px;
+      padding: 0 10px;
     }
 
+    /* Botão do Grupo (Estilo Card Grande) */
     .cat-btn {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      padding: 25px 10px;
+      width: 100%;
+      padding: 20px;
       background: #ffffff;
-      border: 1px solid #ddd;
-      border-bottom: 4px solid #ccc;
+      border: 1px solid var(--aec-gray-border);
       border-radius: 12px;
       cursor: pointer;
-      transition: 0.2s;
+      transition: all 0.2s ease;
+      text-align: left;
     }
 
-    .cat-btn i { font-size: 2rem; color: var(--aec-red); margin-bottom: 8px; pointer-events: none; }
-    .cat-btn span { font-weight: bold; font-size: 0.9rem; text-transform: uppercase; pointer-events: none; }
+    .cat-btn i { 
+      font-size: 1.8rem; 
+      color: var(--aec-red); 
+      margin-right: 20px; 
+      width: 30px;
+      text-align: center;
+      pointer-events: none; 
+    }
+    
+    .cat-btn span { 
+      font-weight: bold; 
+      font-size: 1.1rem; 
+      text-transform: uppercase; 
+      color: var(--text-dark);
+      pointer-events: none; 
+    }
 
-    /* Estados do Botão */
-    .cat-btn:active { transform: translateY(2px); border-bottom-width: 2px; }
-    .cat-btn.active { 
-      background-color: var(--aec-red) !important; 
-      color: white !important; 
+    /* Estado Ativo do Botão */
+    .cat-btn.active {
+      background-color: var(--aec-red);
       border-color: var(--aec-red);
     }
-    .cat-btn.active i { color: var(--aec-gold) !important; }
+    .cat-btn.active i, .cat-btn.active span { color: #ffffff; }
 
-    /* Conteúdo das Categorias */
+    /* Contentor de Itens (logo abaixo do botão) */
     .category-content {
-      display: none !important; /* Escondido por defeito */
-      padding: 20px 10px;
-      margin-top: 15px;
-      background: #fff;
-      border-radius: 10px;
-    }
-
-    .category-content.active {
-      display: block !important; /* Mostra quando ativo */
+      display: none; /* Escondido por padrão */
+      padding: 20px 0;
       animation: fadeIn 0.3s ease-in;
     }
 
-    .category-title {
-      color: var(--aec-red);
-      text-align: center;
-      border-bottom: 2px solid var(--aec-gold);
-      padding-bottom: 10px;
-      margin-bottom: 20px;
+    .category-content.active {
+      display: block;
     }
 
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* Mobile */
+    /* Ajuste da Grid de Cards (Salas) */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 15px;
+    }
+
     @media (max-width: 480px) {
-      .categories-grid { grid-template-columns: 1fr; }
-      .cat-btn { flex-direction: row; padding: 18px; }
-      .cat-btn i { margin-bottom: 0; margin-right: 15px; font-size: 1.5rem; }
+      .grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -96,37 +100,26 @@
     </header>
 
     <main>
-      <div class="categories-grid">
+      <div class="category-group">
         <div class="cat-btn" data-target="entrada">
           <i class="fa-solid fa-map-location-dot"></i>
           <span>Entrada e Serviços</span>
         </div>
-        <div class="cat-btn" data-target="salas">
-          <i class="fa-solid fa-chalkboard-user"></i>
-          <span>Salas e Laboratórios</span>
-        </div>
-        <div class="cat-btn" data-target="social">
-          <i class="fa-solid fa-utensils"></i>
-          <span>Convívio e Lazer</span>
-        </div>
-        <div class="cat-btn" data-target="desporto">
-          <i class="fa-solid fa-medal"></i>
-          <span>Desporto e Exterior</span>
-        </div>
-      </div>
-
-      <section id="content-area">
         <div id="entrada" class="category-content">
-          <h2 class="category-title">Entrada e Serviços</h2>
           <div class="grid">
             <a class="card" href="salas/atrio.html"><div class="icon"><i class="fa-solid fa-school"></i></div><div><h3>Átrio</h3><p>Início da visita.</p></div></a>
             <a class="card" href="salas/reprografia.html"><div class="icon"><i class="fa-solid fa-print"></i></div><div><h3>Reprografia</h3><p>Impressões.</p></div></a>
             <a class="card" href="salas/biblioteca.html"><div class="icon"><i class="fa-solid fa-book-open"></i></div><div><h3>Biblioteca</h3><p>Estudo.</p></div></a>
           </div>
         </div>
+      </div>
 
+      <div class="category-group">
+        <div class="cat-btn" data-target="salas">
+          <i class="fa-solid fa-chalkboard-user"></i>
+          <span>Salas e Laboratórios</span>
+        </div>
         <div id="salas" class="category-content">
-          <h2 class="category-title">Salas e Laboratórios</h2>
           <div class="grid">
             <a class="card" href="salas/salas.html"><div class="icon"><i class="fa-solid fa-user-graduate"></i></div><div><h3>Salas de aula</h3><p>Ensino geral.</p></div></a>
             <a class="card" href="salas/laboratorio-fq.html"><div class="icon"><i class="fa-solid fa-flask"></i></div><div><h3>Laboratório FQ</h3><p>Ciência.</p></div></a>
@@ -136,25 +129,35 @@
             <a class="card" href="salas/salas-cte.html"><div class="icon"><i class="fa-solid fa-microchip"></i></div><div><h3>Salas CTE</h3><p>Tecnologia.</p></div></a>
           </div>
         </div>
+      </div>
 
+      <div class="category-group">
+        <div class="cat-btn" data-target="social">
+          <i class="fa-solid fa-utensils"></i>
+          <span>Convívio e Lazer</span>
+        </div>
         <div id="social" class="category-content">
-          <h2 class="category-title">Convívio e Lazer</h2>
           <div class="grid">
             <a class="card" href="salas/bar.html"><div class="icon"><i class="fa-solid fa-mug-hot"></i></div><div><h3>Bar</h3><p>Café.</p></div></a>
             <a class="card" href="salas/cantina.html"><div class="icon"><i class="fa-solid fa-utensils"></i></div><div><h3>Cantina</h3><p>Almoços.</p></div></a>
             <a class="card" href="salas/auditorio.html"><div class="icon"><i class="fa-solid fa-microphone-lines"></i></div><div><h3>Auditório</h3><p>Eventos.</p></div></a>
           </div>
         </div>
+      </div>
 
+      <div class="category-group">
+        <div class="cat-btn" data-target="desporto">
+          <i class="fa-solid fa-medal"></i>
+          <span>Desporto e Exterior</span>
+        </div>
         <div id="desporto" class="category-content">
-          <h2 class="category-title">Desporto e Exterior</h2>
           <div class="grid">
             <a class="card" href="salas/ginasio.html"><div class="icon"><i class="fa-solid fa-dumbbell"></i></div><div><h3>Ginásio</h3><p>Educação Física.</p></div></a>
             <a class="card" href="salas/campos.html"><div class="icon"><i class="fa-solid fa-tree"></i></div><div><h3>Campos</h3><p>Exterior.</p></div></a>
             <a class="card" href="salas/campo-polidesportivo.html"><div class="icon"><i class="fa-solid fa-basketball"></i></div><div><h3>Polidesportivo</h3><p>Jogos.</p></div></a>
           </div>
         </div>
-      </section>
+      </div>
 
       <footer class="footer">
         <a href="https://www.aecister.pt" target="_blank">
@@ -167,29 +170,25 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const buttons = document.querySelectorAll('.cat-btn');
-      const contents = document.querySelectorAll('.category-content');
 
       buttons.forEach(btn => {
         btn.addEventListener('click', function() {
           const targetId = this.getAttribute('data-target');
-          const targetElement = document.getElementById(targetId);
+          const targetContent = document.getElementById(targetId);
+          const isActive = this.classList.contains('active');
 
-          // Se já está ativo, fecha-o
-          if (this.classList.contains('active')) {
-            this.classList.remove('active');
-            targetElement.classList.remove('active');
-          } else {
-            // Fecha todos
-            buttons.forEach(b => b.classList.remove('active'));
-            contents.forEach(c => c.classList.remove('active'));
+          // Fecha todos os outros antes de abrir o novo (opcional)
+          buttons.forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.category-content').forEach(c => c.classList.remove('active'));
 
-            // Abre o selecionado
+          // Se não estava ativo, abre. Se estava, fecha (comportamento de alternância)
+          if (!isActive) {
             this.classList.add('active');
-            targetElement.classList.add('active');
-
-            // Scroll suave
+            targetContent.classList.add('active');
+            
+            // Pequeno delay para o scroll acompanhar a abertura
             setTimeout(() => {
-              targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              this.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 100);
           }
         });

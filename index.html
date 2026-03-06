@@ -16,32 +16,33 @@
       --text-dark: #444;
     }
 
-    /* Header Centralizado */
+    /* Header Ajustado (Mais pequeno e centralizado) */
     .header { 
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
       border-bottom: 1px solid var(--aec-gray-border); 
-      margin-bottom: 30px; 
-      padding-bottom: 20px;
+      margin-bottom: 25px; 
+      padding-bottom: 15px;
     }
     
     .logo {
-      margin-bottom: 15px;
-      margin-right: 0; /* Remove margem lateral se existir no CSS original */
+      height: 50px; /* Reduzido de 80px para 50px */
+      width: auto;
+      margin-bottom: 10px;
     }
 
     .title { 
       color: var(--aec-red); 
       font-weight: 700;
-      font-size: 1.8rem;
-      margin-bottom: 5px;
+      font-size: 1.4rem; /* Reduzido de 1.8rem para 1.4rem */
+      margin-bottom: 2px;
     }
 
     .subtitle {
-      font-size: 1rem;
-      color: #666;
+      font-size: 0.9rem; /* Ligeiramente mais pequeno */
+      color: #777;
     }
 
     /* Contentor de cada Bloco */
@@ -50,14 +51,14 @@
       padding: 0 10px;
     }
 
-    /* Botão Quadrado - Vermelho por padrão */
+    /* Botão Quadrado */
     .cat-btn {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       width: 100%;
-      min-height: 110px;
+      min-height: 100px;
       background-color: var(--aec-red);
       border: 1px solid var(--aec-red);
       border-radius: 12px;
@@ -67,14 +68,14 @@
     }
 
     .cat-btn i.main-icon { 
-      font-size: 2rem; 
+      font-size: 1.8rem; 
       color: #ffffff; 
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     
     .cat-btn span { 
       font-weight: 500; 
-      font-size: 0.95rem; 
+      font-size: 0.9rem; 
       color: #ffffff;
       text-align: center;
     }
@@ -83,8 +84,8 @@
       position: absolute;
       right: 15px;
       bottom: 15px;
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.7);
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.6);
       transition: transform 0.3s ease;
     }
 
@@ -120,7 +121,7 @@
     }
 
     @keyframes slideDown { 
-      from { opacity: 0; transform: translateY(-10px); } 
+      from { opacity: 0; transform: translateY(-5px); } 
       to { opacity: 1; transform: translateY(0); } 
     }
 
@@ -134,29 +135,24 @@
     .footer {
       display: flex;
       justify-content: center;
-      padding: 30px 0;
-      margin-top: 20px;
+      padding: 20px 0;
+      margin-top: 15px;
     }
 
     .footer img {
-      height: 25px; /* Reduzido de 40px para 25px */
-      opacity: 0.7;
-      transition: opacity 0.3s;
-    }
-
-    .footer img:hover {
-      opacity: 1;
+      height: 22px; 
+      opacity: 0.6;
     }
 
     @media (min-width: 600px) {
-      .cat-btn { width: 180px; height: 180px; margin: 0 auto; }
+      .cat-btn { width: 160px; height: 160px; margin: 0 auto; }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <header class="header">
-      <img src="assets/images/logo.png" alt="Logo ESDICA" class="logo" style="height: 80px;"/>
+      <img src="assets/images/logo.png" alt="Logo ESDICA" class="logo"/>
       <div>
         <div class="title">ESDICA 360</div>
         <div class="subtitle">Visita virtual interativa</div>

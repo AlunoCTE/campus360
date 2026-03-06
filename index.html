@@ -6,85 +6,67 @@
   <title>ESDICA 360 - Visita Virtual</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  
   <link rel="stylesheet" href="assets/css/style.css" />
 
   <style>
-    /* Estilos para os Acordéons (Categorias) */
-    .categories-container {
-      margin-top: 20px;
+    /* Estilos dos Filtros/Tabs */
+    .tabs-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 30px;
       padding: 0 10px;
     }
 
-    details {
-      background-color: #ffffff;
-      border: 1px solid #e0e0e0;
-      border-radius: 12px;
-      margin-bottom: 12px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-      transition: all 0.3s ease;
-      list-style: none;
-    }
-
-    details[open] {
-      border-color: #0056b3;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      padding-bottom: 10px;
-    }
-
-    summary {
-      padding: 16px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #333;
-      cursor: pointer;
-      list-style: none;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-radius: 12px;
-      outline: none;
-    }
-
-    /* Remove a seta padrão do Chrome/Safari */
-    summary::-webkit-details-marker {
-      display: none;
-    }
-
-    /* Ícone da Seta (Font Awesome) */
-    summary::after {
-      content: '\f078'; 
-      font-family: "Font Awesome 6 Free";
-      font-weight: 900;
-      font-size: 0.9rem;
+    .tab-btn {
+      padding: 10px 20px;
+      border: 2px solid #0056b3;
+      background: transparent;
       color: #0056b3;
-      transition: transform 0.3s ease;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
     }
 
-    details[open] summary::after {
-      transform: rotate(180deg);
+    .tab-btn.active, .tab-btn:hover {
+      background: #0056b3;
+      color: white;
     }
 
-    summary:hover {
-      background-color: #f0f7ff;
+    /* Esconder categorias que não estão ativas */
+    .category-content {
+      display: none;
+      animation: fadeIn 0.4s ease;
     }
 
-    /* Ajuste da Grid dentro do Acordéon */
-    .grid-inner {
+    .category-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Ajuste da Grid */
+    .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 12px;
-      padding: 10px 15px;
-      border-top: 1px solid #eee;
+      gap: 20px;
+      padding: 10px;
     }
 
     @media (max-width: 600px) {
-      .grid-inner {
-        grid-template-columns: 1fr; /* Força uma coluna no telemóvel */
+      .tabs-container {
+        gap: 8px;
       }
-      
-      .card {
-        margin-bottom: 5px;
+      .tab-btn {
+        padding: 8px 15px;
+        font-size: 0.8rem;
+        flex-grow: 1; /* Faz os botões ocuparem o espaço no telemóvel */
       }
     }
   </style>
@@ -100,11 +82,16 @@
     </header>
 
     <main>
-      <section class="categories-container">
-        
-        <details>
-          <summary>Entrada e Serviços</summary>
-          <div class="grid-inner">
+      <nav class="tabs-container">
+        <button class="tab-btn active" onclick="openCategory(event, 'entrada')">Entrada</button>
+        <button class="tab-btn" onclick="openCategory(event, 'salas')">Salas & Labs</button>
+        <button class="tab-btn" onclick="openCategory(event, 'social')">Social</button>
+        <button class="tab-btn" onclick="openCategory(event, 'desporto')">Desporto</button>
+      </nav>
+
+      <section>
+        <div id="entrada" class="category-content active">
+          <div class="grid">
             <a class="card" href="salas/atrio.html">
               <div class="icon"><i class="fa-solid fa-school"></i></div>
               <div><h3>Átrio</h3><p>É aqui que tudo começa.</p></div>
@@ -118,18 +105,17 @@
               <div><h3>Biblioteca</h3><p>Um mundo de conhecimento.</p></div>
             </a>
           </div>
-        </details>
+        </div>
 
-        <details>
-          <summary>Salas e Laboratórios</summary>
-          <div class="grid-inner">
+        <div id="salas" class="category-content">
+          <div class="grid">
             <a class="card" href="salas/salas.html">
               <div class="icon"><i class="fa-solid fa-user-graduate"></i></div>
               <div><h3>Salas de aula</h3><p>Onde se constrói o futuro.</p></div>
             </a>
             <a class="card" href="salas/laboratorio-fq.html">
               <div class="icon"><i class="fa-solid fa-flask"></i></div>
-              <div><h3>Laboratório FQ</h3><p>Aqui faz-se magia.</p></div>
+              <div><h3>Laboratório FQ</h3><p>Ciência e magia.</p></div>
             </a>
             <a class="card" href="salas/laboratorio-cn.html">
               <div class="icon"><i class="fa-solid fa-microscope"></i></div>
@@ -145,47 +131,44 @@
             </a>
             <a class="card" href="salas/salas-cte.html">
               <div class="icon"><i class="fa-solid fa-user-graduate"></i></div>
-              <div><h3>Salas CTE</h3><p>O centro da inovação tecnológica.</p></div>
+              <div><h3>Salas CTE</h3><p>Inovação tecnológica.</p></div>
             </a>
           </div>
-        </details>
+        </div>
 
-        <details>
-          <summary>Espaços Sociais e Lazer</summary>
-          <div class="grid-inner">
+        <div id="social" class="category-content">
+          <div class="grid">
             <a class="card" href="salas/bar.html">
               <div class="icon"><i class="fa-solid fa-mug-hot"></i></div>
-              <div><h3>Bar</h3><p>Local de conversas e lanches.</p></div>
+              <div><h3>Bar</h3><p>Conversas e lanches.</p></div>
             </a>
             <a class="card" href="salas/cantina.html">
               <div class="icon"><i class="fa-solid fa-utensils"></i></div>
-              <div><h3>Cantina</h3><p>Pausa para carregar energia.</p></div>
+              <div><h3>Cantina</h3><p>Pausa para energia.</p></div>
             </a>
             <a class="card" href="salas/auditorio.html">
               <div class="icon"><i class="fa-solid fa-microphone"></i></div>
-              <div><h3>Auditório</h3><p>O palco das grandes ideias.</p></div>
+              <div><h3>Auditório</h3><p>Palco de ideias.</p></div>
             </a>
           </div>
-        </details>
+        </div>
 
-        <details>
-          <summary>Desporto e Exterior</summary>
-          <div class="grid-inner">
+        <div id="desporto" class="category-content">
+          <div class="grid">
             <a class="card" href="salas/ginasio.html">
               <div class="icon"><i class="fa-solid fa-dumbbell"></i></div>
-              <div><h3>Ginásio</h3><p>Força, treino e superação.</p></div>
+              <div><h3>Ginásio</h3><p>Força e treino.</p></div>
             </a>
             <a class="card" href="salas/campos.html">
               <div class="icon"><i class="fa-solid fa-tree"></i></div>
-              <div><h3>Campos</h3><p>Respira, convive, aproveita.</p></div>
+              <div><h3>Campos</h3><p>Respira e convive.</p></div>
             </a>
             <a class="card" href="salas/campo-polidesportivo.html">
               <div class="icon"><i class="fa-solid fa-basketball-ball"></i></div>
               <div><h3>Polidesportivo</h3><p>O jogo começa aqui.</p></div>
             </a>
           </div>
-        </details>
-
+        </div>
       </section>
 
       <footer class="footer">
@@ -195,5 +178,27 @@
       </footer>
     </main>
   </div>
+
+  <script>
+    function openCategory(evt, categoryName) {
+      var i, content, tablinks;
+      
+      // Esconder todos os conteúdos
+      content = document.getElementsByClassName("category-content");
+      for (i = 0; i < content.length; i++) {
+        content[i].classList.remove("active");
+      }
+
+      // Remover a classe 'active' de todos os botões
+      tablinks = document.getElementsByClassName("tab-btn");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+      }
+
+      // Mostrar a categoria atual e marcar o botão como ativo
+      document.getElementById(categoryName).classList.add("active");
+      evt.currentTarget.classList.add("active");
+    }
+  </script>
 </body>
 </html>

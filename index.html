@@ -24,37 +24,21 @@
       justify-content: center;
       text-align: center;
       border-bottom: 1px solid var(--aec-gray-border); 
-      margin-bottom: 20px; 
+      margin-bottom: 15px; 
       padding: 10px 0;
     }
     
-    .logo { 
-      height: 45px; 
-      width: auto;
-      margin-bottom: 4px; /* Espaço mínimo solicitado */
-    }
-
-    .title { 
-      color: var(--aec-red); 
-      font-weight: 700; 
-      font-size: 1.3rem; 
-      margin: 0; 
-      line-height: 1.1; 
-    }
-
-    .subtitle { 
-      font-size: 0.85rem; 
-      color: #777; 
-      margin: 0; 
-    }
+    .logo { height: 42px; width: auto; margin-bottom: 4px; }
+    .title { color: var(--aec-red); font-weight: 700; font-size: 1.2rem; margin: 0; line-height: 1.1; }
+    .subtitle { font-size: 0.8rem; color: #777; margin: 0; }
 
     /* Botão Voltar ao Topo */
     #backToTop {
       position: fixed;
-      bottom: 25px;
+      bottom: 20px;
       right: 20px;
-      width: 45px;
-      height: 45px;
+      width: 42px;
+      height: 42px;
       background-color: var(--aec-red);
       color: white;
       border: none;
@@ -67,8 +51,8 @@
       z-index: 1000;
     }
 
-    /* Estrutura das Categorias - Botões Maiores (TAMANHO ANTERIOR) */
-    .category-block { margin-bottom: 15px; padding: 0 10px; }
+    /* Estrutura das Categorias - BOTÕES AJUSTADOS */
+    .category-block { margin-bottom: 12px; padding: 0 10px; }
 
     .cat-btn {
       display: flex;
@@ -76,7 +60,7 @@
       align-items: center;
       justify-content: center;
       width: 100%;
-      min-height: 110px; /* Recuperado o tamanho anterior */
+      min-height: 95px; /* Tamanho intermédio ajustado */
       background-color: var(--aec-red);
       border: 1px solid var(--aec-red);
       border-radius: 12px;
@@ -85,26 +69,26 @@
       position: relative;
     }
 
-    .cat-btn i.main-icon { font-size: 1.8rem; color: #ffffff; margin-bottom: 8px; }
-    .cat-btn span { font-weight: 500; font-size: 0.95rem; color: #ffffff; }
+    .cat-btn i.main-icon { font-size: 1.6rem; color: #ffffff; margin-bottom: 6px; }
+    .cat-btn span { font-weight: 500; font-size: 0.9rem; color: #ffffff; }
     
     .chevron { 
       position: absolute; 
-      right: 15px; 
-      bottom: 12px; 
-      font-size: 0.75rem; 
+      right: 12px; 
+      bottom: 10px; 
+      font-size: 0.7rem; 
       color: rgba(255,255,255,0.7); 
       transition: transform 0.3s; 
     }
 
-    /* Estado Ativo: Branco/Limpo */
+    /* Estado Ativo */
     .cat-btn.active { background-color: #ffffff; border-color: var(--aec-red); }
     .cat-btn.active i.main-icon, .cat-btn.active span, .cat-btn.active .chevron { color: var(--aec-red); }
     .cat-btn.active .chevron { transform: rotate(180deg); }
 
     .category-content {
       display: none;
-      padding: 20px 10px;
+      padding: 15px 10px;
       background: var(--aec-gray-light);
       border-radius: 0 0 12px 12px;
       margin-top: -5px;
@@ -113,22 +97,21 @@
       animation: slideDown 0.3s ease-out;
     }
     .category-content.active { display: block; }
-    @keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 15px; }
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; } }
 
-    .footer { display: flex; justify-content: center; padding: 25px 0; }
-    .footer img { height: 22px; opacity: 0.5; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
+    .footer { display: flex; justify-content: center; padding: 20px 0; }
+    .footer img { height: 18px; opacity: 0.5; }
 
-    /* Estilo para ecrãs maiores (PC/Tablet) */
     @media (min-width: 600px) {
-      .cat-btn { width: 170px; height: 170px; margin: 0 auto; }
+      .cat-btn { width: 150px; height: 150px; margin: 0 auto; }
     }
   </style>
 </head>
 <body>
 
-  <button id="backToTop" onclick="scrollToTop()" title="Voltar ao topo">
+  <button id="backToTop" onclick="scrollToTop()">
     <i class="fa-solid fa-arrow-up"></i>
   </button>
 
@@ -166,38 +149,6 @@
             <a class="card" href="salas/salas.html"><div class="icon"><i class="fa-solid fa-user-graduate"></i></div><div><h3>Salas de aula</h3><p>Geral.</p></div></a>
             <a class="card" href="salas/laboratorio-fq.html"><div class="icon"><i class="fa-solid fa-flask"></i></div><div><h3>Lab FQ</h3><p>Ciência.</p></div></a>
             <a class="card" href="salas/laboratorio-cn.html"><div class="icon"><i class="fa-solid fa-microscope"></i></div><div><h3>Lab CN</h3><p>Natureza.</p></div></a>
-            <a class="card" href="salas/oficina-informatica.html"><div class="icon"><i class="fa-solid fa-computer"></i></div><div><h3>Informática</h3><p>Hardware.</p></div></a>
-            <a class="card" href="salas/oficina-multimedia.html"><div class="icon"><i class="fa-solid fa-photo-film"></i></div><div><h3>Multimédia</h3><p>Artes.</p></div></a>
-            <a class="card" href="salas/salas-cte.html"><div class="icon"><i class="fa-solid fa-microchip"></i></div><div><h3>CTE</h3><p>Tecnologia.</p></div></a>
-          </div>
-        </div>
-      </div>
-
-      <div class="category-block">
-        <div class="cat-btn" data-target="social">
-          <i class="fa-solid fa-utensils main-icon"></i>
-          <span>Convívio e lazer</span>
-          <i class="fa-solid fa-chevron-down chevron"></i>
-        </div>
-        <div id="social" class="category-content">
-          <div class="grid">
-            <a class="card" href="salas/bar.html"><div class="icon"><i class="fa-solid fa-mug-hot"></i></div><div><h3>Bar</h3><p>Café.</p></div></a>
-            <a class="card" href="salas/cantina.html"><div class="icon"><i class="fa-solid fa-utensils"></i></div><div><h3>Cantina</h3><p>Almoço.</p></div></a>
-            <a class="card" href="salas/auditorio.html"><div class="icon"><i class="fa-solid fa-microphone-lines"></i></div><div><h3>Auditório</h3><p>Eventos.</p></div></a>
-          </div>
-        </div>
-      </div>
-
-      <div class="category-block">
-        <div class="cat-btn" data-target="desporto">
-          <i class="fa-solid fa-medal main-icon"></i>
-          <span>Desporto e exterior</span>
-          <i class="fa-solid fa-chevron-down chevron"></i>
-        </div>
-        <div id="desporto" class="category-content">
-          <div class="grid">
-            <a class="card" href="salas/ginasio.html"><div class="icon"><i class="fa-solid fa-dumbbell"></i></div><div><h3>Ginásio</h3><p>Ed. Física.</p></div></a>
-            <a class="card" href="salas/campos.html"><div class="icon"><i class="fa-solid fa-tree"></i></div><div><h3>Campos</h3><p>Exterior.</p></div></a>
           </div>
         </div>
       </div>
@@ -213,7 +164,7 @@
   <script>
     const btt = document.getElementById("backToTop");
     window.onscroll = function() {
-      if (document.body.scrollTop > 250 || document.documentElement.scrollTop > 250) {
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
         btt.style.display = "flex";
       } else {
         btt.style.display = "none";

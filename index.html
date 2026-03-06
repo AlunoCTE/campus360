@@ -9,64 +9,125 @@
   <link rel="stylesheet" href="assets/css/style.css" />
 
   <style>
-    /* Estilos dos Filtros/Tabs */
-    .tabs-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
+    :root {
+      /* Cores extraídas do site AECISTER.PT */
+      --aec-red: #8b0000;    /* Vermelho Bordô oficial */
+      --aec-gold: #c5a059;   /* Dourado/Ocre institucional */
+      --bg-light: #f4f4f4;
+      --text-dark: #333333;
+      --border-color: #e0e0e0;
+    }
+
+    /* Ajuste do Header para combinar com o site oficial */
+    .header {
+      border-bottom: 4px solid var(--aec-gold);
       margin-bottom: 30px;
-      padding: 0 10px;
     }
 
-    .tab-btn {
-      padding: 10px 20px;
-      border: 2px solid #0056b3;
-      background: transparent;
-      color: #0056b3;
-      border-radius: 25px;
+    .title { color: var(--aec-red); }
+
+    /* Contentor das Categorias - Botões Bem Grandes */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      padding: 10px;
+      margin-bottom: 30px;
+    }
+
+    .cat-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 35px 15px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-bottom: 5px solid var(--border-color); /* Efeito de profundidade */
+      border-radius: 12px;
       cursor: pointer;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      color: var(--text-dark);
     }
 
-    .tab-btn.active, .tab-btn:hover {
-      background: #0056b3;
-      color: white;
+    .cat-btn i {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+      color: var(--aec-red);
     }
 
-    /* Esconder categorias que não estão ativas */
+    .cat-btn span {
+      font-weight: 700;
+      font-size: 1rem;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    /* Estado Ativo / Hover (Cores AECISTER) */
+    .cat-btn:hover {
+      border-color: var(--aec-gold);
+      transform: translateY(-2px);
+    }
+
+    .cat-btn.active {
+      background-color: var(--aec-red);
+      border-color: var(--aec-red);
+      border-bottom: 5px solid #600000;
+      color: #ffffff;
+    }
+
+    .cat-btn.active i {
+      color: var(--aec-gold);
+    }
+
+    /* Secção de Conteúdo */
     .category-content {
-      display: none;
-      animation: fadeIn 0.4s ease;
+      display: none; /* Começa escondido */
+      animation: fadeIn 0.4s ease-in-out;
+      background: white;
+      padding: 20px 10px;
+      border-radius: 15px;
+      margin-top: 10px;
+      border: 1px solid var(--border-color);
     }
 
     .category-content.active {
       display: block;
     }
 
+    .category-title {
+      font-size: 1.6rem;
+      color: var(--aec-red);
+      margin-bottom: 25px;
+      text-align: center;
+      font-weight: 800;
+      border-bottom: 2px solid var(--aec-gold);
+      display: inline-block;
+      width: 100%;
+      padding-bottom: 10px;
+    }
+
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
-    /* Ajuste da Grid */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
-      padding: 10px;
-    }
-
-    @media (max-width: 600px) {
-      .tabs-container {
-        gap: 8px;
+    /* Ajuste para Telemóvel (Botões em Lista) */
+    @media (max-width: 480px) {
+      .categories-grid {
+        grid-template-columns: 1fr;
       }
-      .tab-btn {
-        padding: 8px 15px;
-        font-size: 0.8rem;
-        flex-grow: 1; /* Faz os botões ocuparem o espaço no telemóvel */
+      .cat-btn {
+        flex-direction: row;
+        justify-content: flex-start;
+        padding: 20px;
+      }
+      .cat-btn i {
+        margin-bottom: 0;
+        margin-right: 25px;
+        font-size: 2rem;
+        width: 40px;
+        text-align: center;
       }
     }
   </style>
@@ -82,123 +143,85 @@
     </header>
 
     <main>
-      <nav class="tabs-container">
-        <button class="tab-btn active" onclick="openCategory(event, 'entrada')">Entrada</button>
-        <button class="tab-btn" onclick="openCategory(event, 'salas')">Salas & Labs</button>
-        <button class="tab-btn" onclick="openCategory(event, 'social')">Social</button>
-        <button class="tab-btn" onclick="openCategory(event, 'desporto')">Desporto</button>
-      </nav>
+      <div class="categories-grid">
+        <div class="cat-btn" onclick="openCategory(this, 'entrada')">
+          <i class="fa-solid fa-map-location-dot"></i>
+          <span>Entrada e Serviços</span>
+        </div>
+        <div class="cat-btn" onclick="openCategory(this, 'salas')">
+          <i class="fa-solid fa-chalkboard-user"></i>
+          <span>Salas e Laboratórios</span>
+        </div>
+        <div class="cat-btn" onclick="openCategory(this, 'social')">
+          <i class="fa-solid fa-utensils"></i>
+          <span>Convívio e Lazer</span>
+        </div>
+        <div class="cat-btn" onclick="openCategory(this, 'desporto')">
+          <i class="fa-solid fa-medal"></i>
+          <span>Desporto e Exterior</span>
+        </div>
+      </div>
 
-      <section>
-        <div id="entrada" class="category-content active">
+      <section id="content-area">
+        
+        <div id="entrada" class="category-content">
+          <h2 class="category-title">Entrada e Serviços</h2>
           <div class="grid">
             <a class="card" href="salas/atrio.html">
               <div class="icon"><i class="fa-solid fa-school"></i></div>
-              <div><h3>Átrio</h3><p>É aqui que tudo começa.</p></div>
+              <div><h3>Átrio</h3><p>Início da visita.</p></div>
             </a>
             <a class="card" href="salas/reprografia.html">
               <div class="icon"><i class="fa-solid fa-print"></i></div>
-              <div><h3>Reprografia</h3><p>Onde as ideias passam para o papel.</p></div>
+              <div><h3>Reprografia</h3><p>Impressões e cópias.</p></div>
             </a>
             <a class="card" href="salas/biblioteca.html">
               <div class="icon"><i class="fa-solid fa-book-open"></i></div>
-              <div><h3>Biblioteca</h3><p>Um mundo de conhecimento.</p></div>
+              <div><h3>Biblioteca</h3><p>Estudo e leitura.</p></div>
             </a>
           </div>
         </div>
 
         <div id="salas" class="category-content">
+          <h2 class="category-title">Salas e Laboratórios</h2>
           <div class="grid">
             <a class="card" href="salas/salas.html">
               <div class="icon"><i class="fa-solid fa-user-graduate"></i></div>
-              <div><h3>Salas de aula</h3><p>Onde se constrói o futuro.</p></div>
+              <div><h3>Salas de aula</h3><p>Ensino geral.</p></div>
             </a>
             <a class="card" href="salas/laboratorio-fq.html">
               <div class="icon"><i class="fa-solid fa-flask"></i></div>
-              <div><h3>Laboratório FQ</h3><p>Ciência e magia.</p></div>
+              <div><h3>Laboratório FQ</h3><p>Física e Química.</p></div>
             </a>
             <a class="card" href="salas/laboratorio-cn.html">
               <div class="icon"><i class="fa-solid fa-microscope"></i></div>
-              <div><h3>Laboratório CN</h3><p>Onde a ciência acontece.</p></div>
+              <div><h3>Laboratório CN</h3><p>Ciências Naturais.</p></div>
             </a>
             <a class="card" href="salas/oficina-informatica.html">
               <div class="icon"><i class="fa-solid fa-computer"></i></div>
-              <div><h3>Oficina Informática</h3><p>Tecnologia em ação.</p></div>
+              <div><h3>Oficina Informática</h3><p>Tecnologia e Redes.</p></div>
             </a>
             <a class="card" href="salas/oficina-multimedia.html">
               <div class="icon"><i class="fa-solid fa-photo-film"></i></div>
-              <div><h3>Oficina Multimédia</h3><p>Criatividade em modo ON.</p></div>
+              <div><h3>Oficina Multimédia</h3><p>Artes Digitais.</p></div>
             </a>
             <a class="card" href="salas/salas-cte.html">
-              <div class="icon"><i class="fa-solid fa-user-graduate"></i></div>
-              <div><h3>Salas CTE</h3><p>Inovação tecnológica.</p></div>
+              <div class="icon"><i class="fa-solid fa-microchip"></i></div>
+              <div><h3>Salas CTE</h3><p>Centro Tecnológico.</p></div>
             </a>
           </div>
         </div>
 
         <div id="social" class="category-content">
+          <h2 class="category-title">Convívio e Lazer</h2>
           <div class="grid">
             <a class="card" href="salas/bar.html">
               <div class="icon"><i class="fa-solid fa-mug-hot"></i></div>
-              <div><h3>Bar</h3><p>Conversas e lanches.</p></div>
+              <div><h3>Bar</h3><p>Pausa para convívio.</p></div>
             </a>
             <a class="card" href="salas/cantina.html">
               <div class="icon"><i class="fa-solid fa-utensils"></i></div>
-              <div><h3>Cantina</h3><p>Pausa para energia.</p></div>
+              <div><h3>Cantina</h3><p>Refeitório escolar.</p></div>
             </a>
             <a class="card" href="salas/auditorio.html">
-              <div class="icon"><i class="fa-solid fa-microphone"></i></div>
-              <div><h3>Auditório</h3><p>Palco de ideias.</p></div>
-            </a>
-          </div>
-        </div>
-
-        <div id="desporto" class="category-content">
-          <div class="grid">
-            <a class="card" href="salas/ginasio.html">
-              <div class="icon"><i class="fa-solid fa-dumbbell"></i></div>
-              <div><h3>Ginásio</h3><p>Força e treino.</p></div>
-            </a>
-            <a class="card" href="salas/campos.html">
-              <div class="icon"><i class="fa-solid fa-tree"></i></div>
-              <div><h3>Campos</h3><p>Respira e convive.</p></div>
-            </a>
-            <a class="card" href="salas/campo-polidesportivo.html">
-              <div class="icon"><i class="fa-solid fa-basketball-ball"></i></div>
-              <div><h3>Polidesportivo</h3><p>O jogo começa aqui.</p></div>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <footer class="footer">
-        <a href="https://www.aecister.pt" target="_blank" rel="noopener noreferrer">
-          <img src="assets/images/logo_Agr.png" alt="AECISTER" style="height:30px;">
-        </a>
-      </footer>
-    </main>
-  </div>
-
-  <script>
-    function openCategory(evt, categoryName) {
-      var i, content, tablinks;
-      
-      // Esconder todos os conteúdos
-      content = document.getElementsByClassName("category-content");
-      for (i = 0; i < content.length; i++) {
-        content[i].classList.remove("active");
-      }
-
-      // Remover a classe 'active' de todos os botões
-      tablinks = document.getElementsByClassName("tab-btn");
-      for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].classList.remove("active");
-      }
-
-      // Mostrar a categoria atual e marcar o botão como ativo
-      document.getElementById(categoryName).classList.add("active");
-      evt.currentTarget.classList.add("active");
-    }
-  </script>
-</body>
-</html>
+              <div class="icon"><i class="fa

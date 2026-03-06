@@ -172,4 +172,62 @@
         <div id="social" class="category-content">
           <div class="grid">
             <a class="card" href="salas/bar.html"><div class="icon"><i class="fa-solid fa-mug-hot"></i></div><div><h3>Bar</h3><p>Café.</p></div></a>
-            <a class="card" href="salas/cantina.html"><div class="icon"><i class="fa-solid fa-utensils"></i></div><div><h3>Cant
+            <a class="card" href="salas/cantina.html"><div class="icon"><i class="fa-solid fa-utensils"></i></div><div><h3>Cantina</h3><p>Almoços.</p></div></a>
+            <a class="card" href="salas/auditorio.html"><div class="icon"><i class="fa-solid fa-microphone-lines"></i></div><div><h3>Auditório</h3><p>Eventos.</p></div></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-block">
+        <div class="cat-btn" data-target="desporto">
+          <i class="fa-solid fa-medal main-icon"></i>
+          <span>Desporto e exterior</span>
+          <i class="fa-solid fa-chevron-down chevron"></i>
+        </div>
+        <div id="desporto" class="category-content">
+          <div class="grid">
+            <a class="card" href="salas/ginasio.html"><div class="icon"><i class="fa-solid fa-dumbbell"></i></div><div><h3>Ginásio</h3><p>Educação Física.</p></div></a>
+            <a class="card" href="salas/campos.html"><div class="icon"><i class="fa-solid fa-tree"></i></div><div><h3>Campos</h3><p>Exterior.</p></div></a>
+            <a class="card" href="salas/campo-polidesportivo.html"><div class="icon"><i class="fa-solid fa-basketball"></i></div><div><h3>Polidesportivo</h3><p>Jogos.</p></div></a>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <a href="https://www.aecister.pt" target="_blank">
+          <img src="assets/images/logo_Agr.png" alt="AECISTER" style="height:40px;">
+        </a>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const buttons = document.querySelectorAll('.cat-btn');
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const targetId = this.getAttribute('data-target');
+          const targetContent = document.getElementById(targetId);
+          const wasActive = this.classList.contains('active');
+
+          // Fecha todos os grupos e reseta botões
+          buttons.forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.category-content').forEach(c => c.classList.remove('active'));
+
+          // Se não estava aberto, abre o clicado
+          if (!wasActive) {
+            this.classList.add('active');
+            targetContent.classList.add('active');
+            
+            // Scroll suave para o botão que acabámos de clicar
+            setTimeout(() => {
+              this.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 150);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

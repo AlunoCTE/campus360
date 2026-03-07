@@ -23,16 +23,64 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      border-bottom: none; 
-      margin-bottom: 15px; 
-      padding: 10px 0;
+      border-bottom: none !important; 
+      margin-bottom: 20px; 
+      padding: 15px 0;
     }
     
-    .logo { height: 75px; width: auto; margin-bottom: 4px; }
-    .title { color: var(--aec-red); font-weight: 700; font-size: 1.25rem; margin: 0; line-height: 1.1; }
-    .subtitle { font-size: 0.8rem; color: #777; margin: 0; }
+    .logo { height: 75px; width: auto; margin-bottom: 6px; }
+    .title { color: var(--aec-red); font-weight: 700; font-size: 1.3rem; margin: 0; line-height: 1.1; }
 
-    /* Botão Voltar ao Topo (Semi-transparente) */
+    /* Grid de Categorias em Quadrados */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 0 10px;
+    }
+
+    .category-block { width: 100%; }
+
+    .cat-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background-color: var(--aec-red);
+      border: 1px solid var(--aec-red);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 10px;
+    }
+
+    .cat-btn i.main-icon { font-size: 1.8rem; color: #ffffff; margin-bottom: 8px; }
+    .cat-btn span { font-weight: 500; font-size: 0.85rem; color: #ffffff; text-align: center; line-height: 1.2; }
+    
+    .cat-btn.active { background-color: #ffffff; border-color: var(--aec-red); }
+    .cat-btn.active i.main-icon, .cat-btn.active span { color: var(--aec-red); }
+
+    /* Conteúdo Expandido */
+    .category-content {
+      display: none;
+      grid-column: 1 / -1; 
+      padding: 20px 10px;
+      background: var(--aec-gray-light);
+      border-radius: 12px;
+      margin: 5px 0 15px 0;
+      border: 1px solid var(--aec-gray-border);
+      animation: fadeIn 0.3s ease-out;
+    }
+    .category-content.active { display: block; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
+
+    /* Botão Voltar ao Topo */
     #backToTop {
       position: fixed;
       bottom: 20px;
@@ -49,66 +97,30 @@
       justify-content: center;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
       z-index: 1000;
-      opacity: 0.6; /* Subtil */
+      opacity: 0.8;
       transition: opacity 0.3s;
     }
     #backToTop:hover { opacity: 1; }
 
-    /* Estrutura das Categorias */
-    .category-block { margin-bottom: 12px; padding: 0 10px; }
-
-    .cat-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      min-height: 95px; 
-      background-color: var(--aec-red);
-      border: 1px solid var(--aec-red);
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
+    /* Rodapé com Logo Original */
+    .footer { 
+      display: flex; 
+      justify-content: center; 
+      padding: 30px 0; 
+      border-top: none !important; 
     }
-
-    .cat-btn i.main-icon { font-size: 1.6rem; color: #ffffff; margin-bottom: 6px; }
-    .cat-btn span { font-weight: 500; font-size: 0.9rem; color: #ffffff; }
-    
-    .chevron { 
-      position: absolute; 
-      right: 12px; 
-      bottom: 10px; 
-      font-size: 0.7rem; 
-      color: rgba(255,255,255,0.7); 
-      transition: transform 0.3s; 
+    .footer img { 
+      height: 25px; /* Ligeiramente maior para visibilidade */
+      opacity: 1 !important; /* Cor total/Original */
+      transition: transform 0.3s ease;
     }
-
-    /* Estado Ativo: Inversão de cores */
-    .cat-btn.active { background-color: #ffffff; border-color: var(--aec-red); }
-    .cat-btn.active i.main-icon, .cat-btn.active span, .cat-btn.active .chevron { color: var(--aec-red); }
-    .cat-btn.active .chevron { transform: rotate(180deg); }
-
-    .category-content {
-      display: none;
-      padding: 15px 10px;
-      background: var(--aec-gray-light);
-      border-radius: 0 0 12px 12px;
-      margin-top: -5px;
-      border: 1px solid var(--aec-gray-border);
-      border-top: none;
-      animation: slideDown 0.3s ease-out;
+    .footer a:hover img {
+      transform: scale(1.05);
     }
-    .category-content.active { display: block; }
-
-    @keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; } }
-
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
-    .footer { display: flex; justify-content: center; padding: 20px 0; }
-    .footer img { height: 18px; opacity: 0.5; }
 
     @media (min-width: 600px) {
-      .cat-btn { width: 150px; height: 150px; margin: 0 auto; }
+      .categories-grid { grid-template-columns: repeat(3, 150px); justify-content: center; }
+      .category-content { grid-column: 1 / -1; }
     }
   </style>
 </head>
@@ -124,19 +136,34 @@
       <h1 class="title">ESDICA 360</h1>
     </header>
 
-    <main>
+    <main class="categories-grid">
+      
       <div class="category-block">
         <div class="cat-btn" data-target="entrada">
           <i class="fa-solid fa-map-location-dot main-icon"></i>
           <span>entrada e serviços</span>
-          <i class="fa-solid fa-chevron-down chevron"></i>
         </div>
-        <div id="entrada" class="category-content">
-          <div class="grid">
-            <a class="card" href="salas/atrio.html"><div class="icon"><i class="fa-solid fa-school"></i></div><div><h3>Átrio</h3><p>É aqui que tudo começa.</p></div></a>
-            <a class="card" href="salas/reprografia.html"><div class="icon"><i class="fa-solid fa-print"></i></div><div><h3>Reprografia</h3><p>Onde as ideias passam para o papel.</p></div></a>
-            <a class="card" href="salas/biblioteca.html"><div class="icon"><i class="fa-solid fa-book-open"></i></div><div><h3>Biblioteca</h3><p>Um mundo de conhecimento.</p></div></a>
-          </div>
+      </div>
+
+      <div class="category-block">
+        <div class="cat-btn" data-target="direcao">
+          <i class="fa-solid fa-file-signature main-icon"></i>
+          <span>direção e secretaria</span>
+        </div>
+      </div>
+
+      <div id="entrada" class="category-content">
+        <div class="grid">
+          <a class="card" href="salas/atrio.html"><div class="icon"><i class="fa-solid fa-school"></i></div><div><h3>Átrio</h3><p>É aqui que tudo começa.</p></div></a>
+          <a class="card" href="salas/reprografia.html"><div class="icon"><i class="fa-solid fa-print"></i></div><div><h3>Reprografia</h3><p>Onde as ideias passam para o papel.</p></div></a>
+          <a class="card" href="salas/biblioteca.html"><div class="icon"><i class="fa-solid fa-book-open"></i></div><div><h3>Biblioteca</h3><p>Um mundo de conhecimento.</p></div></a>
+        </div>
+      </div>
+
+      <div id="direcao" class="category-content">
+        <div class="grid">
+          <a class="card" href="salas/direcao.html"><div class="icon"><i class="fa-solid fa-user-tie"></i></div><div><h3>Direção</h3><p>Gestão e coordenação escolar.</p></div></a>
+          <a class="card" href="salas/secretaria.html"><div class="icon"><i class="fa-solid fa-folder-open"></i></div><div><h3>Secretaria</h3><p>Apoio administrativo e documental.</p></div></a>
         </div>
       </div>
 
@@ -144,17 +171,31 @@
         <div class="cat-btn" data-target="salas">
           <i class="fa-solid fa-chalkboard-user main-icon"></i>
           <span>salas e laboratórios</span>
-          <i class="fa-solid fa-chevron-down chevron"></i>
         </div>
-        <div id="salas" class="category-content">
-          <div class="grid">
-            <a class="card" href="salas/salas.html"><div class="icon"><i class="fa-solid fa-user-graduate"></i></div><div><h3>Salas de aula</h3><p>Onde se constrói o futuro.</p></div></a>
-            <a class="card" href="salas/laboratorio-fq.html"><div class="icon"><i class="fa-solid fa-flask"></i></div><div><h3>Laboratório FQ</h3><p>Aqui faz-se magia.</p></div></a>
-            <a class="card" href="salas/laboratorio-cn.html"><div class="icon"><i class="fa-solid fa-microscope"></i></div><div><h3>Laboratório CN</h3><p>Onde a ciência acontece.</p></div></a>
-            <a class="card" href="salas/oficina-informatica.html"><div class="icon"><i class="fa-solid fa-computer"></i></div><div><h3>Oficina Info</h3><p>Tecnologia em ação.</p></div></a>
-            <a class="card" href="salas/oficina-multimedia.html"><div class="icon"><i class="fa-solid fa-photo-film"></i></div><div><h3>Oficina Multimédia</h3><p>Criatividade em modo ON.</p></div></a>
-            <a class="card" href="salas/salas-cte.html"><div class="icon"><i class="fa-solid fa-microchip"></i></div><div><h3>Salas CTE</h3><p>O Centro da Inovação Tecnológica.</p></div></a>
-          </div>
+      </div>
+
+      <div class="category-block">
+        <div class="cat-btn" data-target="oficinas">
+          <i class="fa-solid fa-tools main-icon"></i>
+          <span>oficinas</span>
+        </div>
+      </div>
+
+      <div id="salas" class="category-content">
+        <div class="grid">
+          <a class="card" href="salas/salas.html"><div class="icon"><i class="fa-solid fa-user-graduate"></i></div><div><h3>Salas de aula</h3><p>Onde se constrói o futuro.</p></div></a>
+          <a class="card" href="salas/laboratorio-fq.html"><div class="icon"><i class="fa-solid fa-flask"></i></div><div><h3>Laboratório FQ</h3><p>Aqui faz-se magia.</p></div></a>
+          <a class="card" href="salas/laboratorio-cn.html"><div class="icon"><i class="fa-solid fa-microscope"></i></div><div><h3>Laboratório CN</h3><p>Onde a ciência acontece.</p></div></a>
+          <a class="card" href="salas/salas-cte.html"><div class="icon"><i class="fa-solid fa-microchip"></i></div><div><h3>Salas CTE</h3><p>O Centro da Inovação Tecnológica.</p></div></a>
+        </div>
+      </div>
+
+      <div id="oficinas" class="category-content">
+        <div class="grid">
+          <a class="card" href="salas/oficina-informatica.html"><div class="icon"><i class="fa-solid fa-computer"></i></div><div><h3>Oficina Info</h3><p>Tecnologia em ação.</p></div></a>
+          <a class="card" href="salas/oficina-multimedia.html"><div class="icon"><i class="fa-solid fa-photo-film"></i></div><div><h3>Oficina Multimédia</h3><p>Criatividade em modo ON.</p></div></a>
+          <a class="card" href="salas/oficina-traco.html"><div class="icon"><i class="fa-solid fa-pen-ruler"></i></div><div><h3>Oficina do Traço</h3><p>Desenho e projeto técnico.</p></div></a>
+          <a class="card" href="salas/oficina-eletricidade.html"><div class="icon"><i class="fa-solid fa-bolt"></i></div><div><h3>Oficina de Eletricidade</h3><p>Energia e sistemas elétricos.</p></div></a>
         </div>
       </div>
 
@@ -162,14 +203,6 @@
         <div class="cat-btn" data-target="social">
           <i class="fa-solid fa-utensils main-icon"></i>
           <span>convívio e lazer</span>
-          <i class="fa-solid fa-chevron-down chevron"></i>
-        </div>
-        <div id="social" class="category-content">
-          <div class="grid">
-            <a class="card" href="salas/bar.html"><div class="icon"><i class="fa-solid fa-mug-hot"></i></div><div><h3>Bar</h3><p>Local de conversas, risos e lanches.</p></div></a>
-            <a class="card" href="salas/cantina.html"><div class="icon"><i class="fa-solid fa-utensils"></i></div><div><h3>Cantina</h3><p>Pausa para carregar energias.</p></div></a>
-            <a class="card" href="salas/auditorio.html"><div class="icon"><i class="fa-solid fa-microphone-lines"></i></div><div><h3>Auditório</h3><p>O palco das grandes ideias.</p></div></a>
-          </div>
         </div>
       </div>
 
@@ -177,23 +210,32 @@
         <div class="cat-btn" data-target="desporto">
           <i class="fa-solid fa-medal main-icon"></i>
           <span>desporto e exterior</span>
-          <i class="fa-solid fa-chevron-down chevron"></i>
-        </div>
-        <div id="desporto" class="category-content">
-          <div class="grid">
-            <a class="card" href="salas/ginasio.html"><div class="icon"><i class="fa-solid fa-dumbbell"></i></div><div><h3>Ginásio</h3><p>Força, treino e superação.</p></div></a>
-            <a class="card" href="salas/campos.html"><div class="icon"><i class="fa-solid fa-tree"></i></div><div><h3>Campos</h3><p>Respira, convive e aproveita.</p></div></a>
-            <a class="card" href="salas/campo-polidesportivo.html"><div class="icon"><i class="fa-solid fa-basketball"></i></div><div><h3>Polidesportivo</h3><p>O jogo começa aqui.</</p></div></a>
-          </div>
         </div>
       </div>
 
-      <footer class="footer">
-        <a href="https://www.aecister.pt" target="_blank">
-          <img src="assets/images/logo_Agr.png" alt="AECISTER">
-        </a>
-      </footer>
+      <div id="social" class="category-content">
+        <div class="grid">
+          <a class="card" href="salas/bar.html"><div class="icon"><i class="fa-solid fa-mug-hot"></i></div><div><h3>Bar</h3><p>Local de conversas, risos e lanches.</p></div></a>
+          <a class="card" href="salas/cantina.html"><div class="icon"><i class="fa-solid fa-utensils"></i></div><div><h3>Cantina</h3><p>Pausa para carregar energias.</p></div></a>
+          <a class="card" href="salas/auditorio.html"><div class="icon"><i class="fa-solid fa-microphone-lines"></i></div><div><h3>Auditório</h3><p>O palco das grandes ideias.</p></div></a>
+        </div>
+      </div>
+
+      <div id="desporto" class="category-content">
+        <div class="grid">
+          <a class="card" href="salas/ginasio.html"><div class="icon"><i class="fa-solid fa-dumbbell"></i></div><div><h3>Ginásio</h3><p>Força, treino e superação.</p></div></a>
+          <a class="card" href="salas/campos.html"><div class="icon"><i class="fa-solid fa-tree"></i></div><div><h3>Campos</h3><p>Respira, convive e aproveita.</p></div></a>
+          <a class="card" href="salas/campo-polidesportivo.html"><div class="icon"><i class="fa-solid fa-basketball"></i></div><div><h3>Polidesportivo</h3><p>O jogo começa aqui.</p></div></a>
+        </div>
+      </div>
+
     </main>
+
+    <footer class="footer">
+      <a href="https://www.aecister.pt" target="_blank">
+        <img src="assets/images/logo_Agr.png" alt="AECISTER">
+      </a>
+    </footer>
   </div>
 
   <script>
@@ -223,7 +265,9 @@
           if (!wasActive) {
             this.classList.add('active');
             targetContent.classList.add('active');
-            setTimeout(() => { this.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 150);
+            setTimeout(() => {
+              targetContent.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
           }
         });
       });

@@ -131,6 +131,15 @@
     }
   </style>
 </head>
+
+  <body>
+  <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js')
+      .then(() => console.log("Service Worker Registado!"))
+      .catch(err => console.log("Erro no SW:", err));
+  }
+</script>
   <style>
   #ios-prompt {
     display: none; /* Escondido por padrão */
@@ -170,7 +179,7 @@
     document.getElementById('ios-prompt').style.display = 'block';
   }
 </script>
-<body>
+
 
   <button id="backToTop" onclick="scrollToTop()">
     <i class="fa-solid fa-arrow-up"></i>

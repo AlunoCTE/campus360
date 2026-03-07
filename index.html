@@ -16,7 +16,7 @@
       --text-dark: #444;
     }
 
-    /* Header Compacto - Logo e Título Próximos */
+    /* Header Compacto */
     .header { 
       display: flex;
       flex-direction: column;
@@ -24,24 +24,26 @@
       justify-content: center;
       text-align: center;
       border-bottom: none !important; 
-      margin-bottom: 15px; 
+      margin-bottom: 10px; 
       padding: 10px 0;
     }
     
     .logo { height: 75px; width: auto; margin-bottom: 2px; }
     .title { color: var(--aec-red); font-weight: 700; font-size: 1.3rem; margin: 0; line-height: 1; }
 
-    /* Grid de Categorias - Quadrados Menores */
+    /* Grid de Categorias - Quadrados Compactos */
     .categories-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
       padding: 0 15px;
-      max-width: 400px;
+      max-width: 320px; /* Reduzido para encolher os quadrados */
       margin: 0 auto;
     }
 
-    /* ESTADO PADRÃO: Botões Brancos/Neutros */
+    .category-block { width: 100%; }
+
+    /* ESTADO PADRÃO: Vermelho */
     .cat-btn {
       display: flex;
       flex-direction: column;
@@ -49,24 +51,23 @@
       justify-content: center;
       width: 100%;
       aspect-ratio: 1 / 1;
-      background-color: #ffffff; /* Fundo Branco por padrão */
-      border: 1px solid var(--aec-gray-border); /* Borda cinza suave */
+      background-color: var(--aec-red);
+      border: 1px solid var(--aec-red);
       border-radius: 12px;
       cursor: pointer;
       transition: all 0.3s ease;
-      padding: 8px;
+      padding: 5px;
     }
 
-    .cat-btn i.main-icon { font-size: 1.5rem; color: var(--aec-red); margin-bottom: 5px; } /* Ícone Vermelho por padrão */
-    .cat-btn span { font-weight: 500; font-size: 0.8rem; color: var(--text-dark); text-align: center; line-height: 1.1; } /* Texto Escuro por padrão */
+    .cat-btn i.main-icon { font-size: 1.5rem; color: #ffffff; margin-bottom: 5px; } 
+    .cat-btn span { font-weight: 500; font-size: 0.8rem; color: #ffffff; text-align: center; line-height: 1.1; } 
     
-    /* ESTADO ATIVO (CLICADO): Inversão de Cores */
+    /* ESTADO ATIVO: Branco */
     .cat-btn.active { 
-      background-color: var(--aec-red); /* Fundo Vermelho quando ativo */
+      background-color: #ffffff; 
       border-color: var(--aec-red);
     }
-    .cat-btn.active i.main-icon { color: #ffffff; } /* Ícone Branco quando ativo */
-    .cat-btn.active span { color: #ffffff; } /* Texto Branco quando ativo */
+    .cat-btn.active i.main-icon, .cat-btn.active span { color: var(--aec-red); }
 
     /* Conteúdo Expandido */
     .category-content {
@@ -104,22 +105,20 @@
       opacity: 0.7;
     }
 
-    /* Rodapé - Logo AECISTER Maior e Original */
+    /* Rodapé - Mais próximo e logo ajustado */
     .footer { 
       display: flex; 
       justify-content: center; 
-      padding: 40px 0; 
+      padding: 15px 0 30px 0; /* Reduzido o padding superior para aproximar */
       border-top: none !important; 
     }
     .footer img { 
-      height: 45px;
+      height: 32px; /* Tamanho médio, nem 20px nem 45px */
       opacity: 1 !important; 
-      transition: transform 0.2s;
     }
-    .footer a:hover img { transform: scale(1.05); }
 
     @media (min-width: 600px) {
-      .categories-grid { grid-template-columns: repeat(3, 130px); }
+      .categories-grid { grid-template-columns: repeat(3, 110px); max-width: 400px; }
     }
   </style>
 </head>

@@ -11,9 +11,9 @@
   <style>
     :root {
       --aec-red: #8b0000;
-      --aec-gray-light: #f8f9fa;
-      --aec-gray-border: #ddd;
-      --text-dark: #444;
+      --aec-gray-light: #fafafa; 
+      --aec-gray-border: #eee;   
+      --text-dark: #333;
     }
 
     /* Header Compacto */
@@ -37,13 +37,10 @@
       grid-template-columns: 1fr 1fr;
       gap: 10px;
       padding: 0 15px;
-      max-width: 320px; /* Reduzido para encolher os quadrados */
+      max-width: 320px; 
       margin: 0 auto;
     }
 
-    .category-block { width: 100%; }
-
-    /* ESTADO PADRÃO: Vermelho */
     .cat-btn {
       display: flex;
       flex-direction: column;
@@ -62,18 +59,14 @@
     .cat-btn i.main-icon { font-size: 1.5rem; color: #ffffff; margin-bottom: 5px; } 
     .cat-btn span { font-weight: 500; font-size: 0.8rem; color: #ffffff; text-align: center; line-height: 1.1; } 
     
-    /* ESTADO ATIVO: Branco */
-    .cat-btn.active { 
-      background-color: #ffffff; 
-      border-color: var(--aec-red);
-    }
+    .cat-btn.active { background-color: #ffffff; border-color: var(--aec-red); }
     .cat-btn.active i.main-icon, .cat-btn.active span { color: var(--aec-red); }
 
     /* Conteúdo Expandido */
     .category-content {
       display: none;
       grid-column: 1 / -1; 
-      padding: 15px 10px;
+      padding: 10px 8px; 
       background: var(--aec-gray-light);
       border-radius: 12px;
       margin: 5px 0 10px 0;
@@ -82,9 +75,15 @@
     }
     .category-content.active { display: block; }
 
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    /* Ajuste dos ITENS (Cards) */
+    .grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
+    
+    /* Título do item reduzido conforme pedido */
+    .card h3 { font-size: 0.8rem !important; font-weight: 600; margin-bottom: 2px; } 
+    .card p { font-size: 0.75rem; line-height: 1.2; }   
+    .card .icon i { font-size: 1rem; }                 
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
     /* Botão Voltar ao Topo */
     #backToTop {
@@ -105,20 +104,18 @@
       opacity: 0.7;
     }
 
-    /* Rodapé - Mais próximo e logo ajustado */
+    /* Rodapé Próximo */
     .footer { 
       display: flex; 
       justify-content: center; 
-      padding: 15px 0 30px 0; /* Reduzido o padding superior para aproximar */
+      padding: 15px 0 30px 0; 
       border-top: none !important; 
     }
-    .footer img { 
-      height: 32px; /* Tamanho médio, nem 20px nem 45px */
-      opacity: 1 !important; 
-    }
+    .footer img { height: 32px; opacity: 1 !important; }
 
     @media (min-width: 600px) {
       .categories-grid { grid-template-columns: repeat(3, 110px); max-width: 400px; }
+      .grid { grid-template-columns: repeat(2, 1fr); } 
     }
   </style>
 </head>

@@ -142,7 +142,7 @@
 </script>
   <style>
   #ios-prompt {
-    display: none; /* Escondido por padrão */
+    display: none; /* Mantemos escondido para o JS decidir quando mostrar */
     position: fixed;
     bottom: 20px;
     left: 50%;
@@ -152,11 +152,26 @@
     background: white;
     color: black;
     padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border-radius: 16px; /* Bordas um pouco mais redondas, estilo iOS */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     z-index: 9999;
-    font-family: sans-serif;
-    border: 1px solid #ddd;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    border: 1px solid rgba(0,0,0,0.1);
+    
+    /* A MÁGICA DA ANIMAÇÃO: */
+    animation: slideUp 0.5s ease-out;
+  }
+
+  /* Define o movimento de deslizar */
+  @keyframes slideUp {
+    from {
+      bottom: -100px; /* Começa fora do ecrã, em baixo */
+      opacity: 0;
+    }
+    to {
+      bottom: 20px; /* Sobe para a posição final */
+      opacity: 1;
+    }
   }
 </style>
 

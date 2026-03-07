@@ -1,0 +1,15 @@
+{
+  "short_name": "Campus360",
+  "name": "Campus 360 - Guia",
+  "icons": [
+    {
+      "src": "assets/icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/campus360/index.html",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

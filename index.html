@@ -62,11 +62,11 @@
     .cat-btn.active { background-color: #ffffff; border-color: var(--aec-red); }
     .cat-btn.active i.main-icon, .cat-btn.active span { color: var(--aec-red); }
 
-    /* Conteúdo Expandido */
+    /* Conteúdo Expandido - Espaço Superior Eliminado */
     .category-content {
       display: none;
       grid-column: 1 / -1; 
-      padding: 10px 8px; 
+      padding: 5px 8px; /* Reduzi o padding superior para o mínimo */
       background: var(--aec-gray-light);
       border-radius: 12px;
       margin: 5px 0 10px 0;
@@ -75,12 +75,23 @@
     }
     .category-content.active { display: block; }
 
-    /* Ajuste dos ITENS (Cards) */
-    .grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
+    /* Ajuste da Grelha Interna */
+    .grid { 
+      display: grid; 
+      grid-template-columns: 1fr; 
+      gap: 8px; 
+      margin: 0 !important; /* Remove margens externas da grelha */
+      padding: 0 !important;
+    }
     
-    /* Título do item reduzido conforme pedido */
-    .card h3 { font-size: 0.8rem !important; font-weight: 600; margin-bottom: 2px; } 
-    .card p { font-size: 0.75rem; line-height: 1.2; }   
+    /* Cartões Individuais - Ajuste de Margens Internas */
+    .card {
+      margin: 0 !important;
+      padding: 10px !important; /* Espaço interno do card */
+    }
+    
+    .card h3 { font-size: 0.8rem !important; font-weight: 600; margin: 0 0 2px 0 !important; } 
+    .card p { font-size: 0.75rem; line-height: 1.2; margin: 0 !important; }   
     .card .icon i { font-size: 1rem; }                 
 
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -104,7 +115,7 @@
       opacity: 0.7;
     }
 
-    /* Rodapé Próximo */
+    /* Rodapé */
     .footer { 
       display: flex; 
       justify-content: center; 

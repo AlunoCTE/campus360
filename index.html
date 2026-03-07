@@ -131,6 +131,45 @@
     }
   </style>
 </head>
+  <style>
+  #ios-prompt {
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 400px;
+    background: white;
+    color: black;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 9999;
+    font-family: sans-serif;
+    border: 1px solid #ddd;
+  }
+</style>
+
+<div id="ios-prompt">
+  <p style="margin: 0; font-size: 14px; line-height: 1.4;">
+    <strong>Instala no teu iPhone:</strong><br>
+    Clica no ícone <strong>Partilhar</strong> (o quadrado com seta no fundo do Safari) e depois em <strong>"Ecrã Principal"</strong>.
+  </p>
+  <button onclick="document.getElementById('ios-prompt').style.display='none'" style="margin-top: 10px; border: none; background: #007aff; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Fechar</button>
+</div>
+  <script>
+  // 1. Verificar se é um dispositivo iOS
+  const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+  // 2. Verificar se a app NÃO está aberta no modo "App" (ou seja, está no navegador)
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+
+  // 3. Se for iOS e estiver no navegador, mostrar o aviso
+  if (isIos && !isStandalone) {
+    document.getElementById('ios-prompt').style.display = 'block';
+  }
+</script>
 <body>
 
   <button id="backToTop" onclick="scrollToTop()">

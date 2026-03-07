@@ -135,9 +135,17 @@
   <body>
   <script>
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js')
-      .then(() => console.log("Service Worker Registado!"))
-      .catch(err => console.log("Erro no SW:", err));
+    navigator.serviceWorker.register('./sw.js').then(reg => {
+      reg.addEventListener('updatefound', () => {
+        const newWorker = reg.installing;
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            // Aqui podes avisar o utilizador que há uma nova versão
+            window.location.reload(); 
+          }
+        });
+      });
+    });
   }
 </script>
   <style>

@@ -5,13 +5,12 @@ const assets = [
   './index.html',
   './manifest.json',
   './sw.js',
-  // Ficheiros na pasta raíz
   './README.txt',
-  // Ficheiros da pasta 'assets'
   './assets/icon.png',
-  './assets/css/style.css', // Confirmar se o nome é este
-  './assets/js/script.js',  // Confirmar se o nome é este
-  // Todas as tuas páginas da pasta 'salas'
+  // Verificar se estes nomes abaixo estão corretos ou se falta alguma sala:
+  './assets/css/style.css', 
+  './assets/js/script.js',  
+  // Páginas das salas
   './salas/atrio.html',
   './salas/bar.html',
   './salas/biblioteca.html',
@@ -28,16 +27,28 @@ const assets = [
   './salas/salas.html'
 ];
 
-// Instalação e Cache
+// Instalação: Guarda os ficheiros na Cache
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(cacheName).then(cache => {
+      console.log('App ESDICA360: A guardar ficheiros offline...');
       return cache.addAll(assets);
     })
   );
 });
 
-// Interceção de pedidos (Modo Offline)
+// Ativação: Limpa lixo de versões antigas
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(keys => {
+      return Promise.all(
+        keys.filter(key => key !== cacheName).map(key => caches.delete(key))
+      );
+    })
+  );
+});
+
+// Fetch: Serve os ficheiros da Cache se estiver offline
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(response => {

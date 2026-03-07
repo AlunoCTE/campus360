@@ -28,7 +28,7 @@
       padding: 10px 0;
     }
     
-    .logo { height: 75px; width: auto; margin-bottom: 2px; } /* Reduzi a margem inferior */
+    .logo { height: 75px; width: auto; margin-bottom: 2px; }
     .title { color: var(--aec-red); font-weight: 700; font-size: 1.3rem; margin: 0; line-height: 1; }
 
     /* Grid de Categorias - Quadrados Menores */
@@ -37,10 +37,11 @@
       grid-template-columns: 1fr 1fr;
       gap: 10px;
       padding: 0 15px;
-      max-width: 400px; /* Limita a largura para não crescerem demasiado em tablets */
+      max-width: 400px;
       margin: 0 auto;
     }
 
+    /* ESTADO PADRÃO: Botões Brancos/Neutros */
     .cat-btn {
       display: flex;
       flex-direction: column;
@@ -48,19 +49,24 @@
       justify-content: center;
       width: 100%;
       aspect-ratio: 1 / 1;
-      background-color: var(--aec-red);
-      border: 1px solid var(--aec-red);
+      background-color: #ffffff; /* Fundo Branco por padrão */
+      border: 1px solid var(--aec-gray-border); /* Borda cinza suave */
       border-radius: 12px;
       cursor: pointer;
       transition: all 0.3s ease;
       padding: 8px;
     }
 
-    .cat-btn i.main-icon { font-size: 1.5rem; color: #ffffff; margin-bottom: 5px; } /* Ícone menor */
-    .cat-btn span { font-weight: 500; font-size: 0.8rem; color: #ffffff; text-align: center; line-height: 1.1; }
+    .cat-btn i.main-icon { font-size: 1.5rem; color: var(--aec-red); margin-bottom: 5px; } /* Ícone Vermelho por padrão */
+    .cat-btn span { font-weight: 500; font-size: 0.8rem; color: var(--text-dark); text-align: center; line-height: 1.1; } /* Texto Escuro por padrão */
     
-    .cat-btn.active { background-color: #ffffff; border-color: var(--aec-red); }
-    .cat-btn.active i.main-icon, .cat-btn.active span { color: var(--aec-red); }
+    /* ESTADO ATIVO (CLICADO): Inversão de Cores */
+    .cat-btn.active { 
+      background-color: var(--aec-red); /* Fundo Vermelho quando ativo */
+      border-color: var(--aec-red);
+    }
+    .cat-btn.active i.main-icon { color: #ffffff; } /* Ícone Branco quando ativo */
+    .cat-btn.active span { color: #ffffff; } /* Texto Branco quando ativo */
 
     /* Conteúdo Expandido */
     .category-content {
@@ -106,7 +112,7 @@
       border-top: none !important; 
     }
     .footer img { 
-      height: 45px; /* Aumentado significativamente conforme pedido */
+      height: 45px;
       opacity: 1 !important; 
       transition: transform 0.2s;
     }

@@ -63,11 +63,11 @@
     .cat-btn.active { background-color: #ffffff; border-color: var(--aec-red); }
     .cat-btn.active i.main-icon, .cat-btn.active span { color: var(--aec-red); }
 
-    /* Conteúdo Expandido - Espaço Superior Eliminado */
+    /* Conteúdo Expandido */
     .category-content {
       display: none;
       grid-column: 1 / -1; 
-      padding: 5px 8px; /* Reduzi o padding superior para o mínimo */
+      padding: 5px 8px;
       background: var(--aec-gray-light);
       border-radius: 12px;
       margin: 5px 0 10px 0;
@@ -81,19 +81,19 @@
       display: grid; 
       grid-template-columns: 1fr; 
       gap: 8px; 
-      margin: 0 !important; /* Remove margens externas da grelha */
+      margin: 0 !important;
       padding: 0 !important;
     }
     
-    /* Cartões Individuais - Ajuste de Margens Internas */
+    /* Cartões Individuais */
     .card {
       margin: 0 !important;
-      padding: 10px !important; /* Espaço interno do card */
+      padding: 10px !important;
     }
     
     .card h3 { font-size: 0.8rem !important; font-weight: 600; margin: 0 0 2px 0 !important; } 
     .card p { font-size: 0.75rem; line-height: 1.2; margin: 0 !important; }   
-    .card .icon i { font-size: 1rem; }                 
+    .card .icon i { font-size: 1rem; }                  
 
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
@@ -125,6 +125,31 @@
     }
     .footer img { height: 32px; opacity: 1 !important; }
 
+    /* Prompt iOS Customizado */
+    #ios-prompt {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 400px;
+      background: white;
+      color: black;
+      padding: 15px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      z-index: 9999;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      border: 1px solid rgba(0,0,0,0.1);
+      animation: slideUp 0.5s ease-out;
+    }
+
+    @keyframes slideUp {
+      from { bottom: -100px; opacity: 0; }
+      to { bottom: 20px; opacity: 1; }
+    }
+
     @media (min-width: 600px) {
       .categories-grid { grid-template-columns: repeat(3, 110px); max-width: 400px; }
       .grid { grid-template-columns: repeat(2, 1fr); } 
@@ -132,77 +157,50 @@
   </style>
 </head>
 
-  <body>
+<body>
   <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js').then(reg => {
-      reg.addEventListener('updatefound', () => {
-        const newWorker = reg.installing;
-        newWorker.addEventListener('statechange', () => {
-          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-            // Aqui podes avisar o utilizador que há uma nova versão
-            window.location.reload(); 
-          }
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').then(reg => {
+        reg.addEventListener('updatefound', () => {
+          const newWorker = reg.installing;
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              window.location.reload(); 
+            }
+          });
         });
       });
-    });
-  }
-</script>
-  <style>
-  #ios-prompt {
-    display: none; /* Mantemos escondido para o JS decidir quando mostrar */
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 400px;
-    background: white;
-    color: black;
-    padding: 15px;
-    border-radius: 16px; /* Bordas um pouco mais redondas, estilo iOS */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    z-index: 9999;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    border: 1px solid rgba(0,0,0,0.1);
-    
-    /* A MÁGICA DA ANIMAÇÃO: */
-    animation: slideUp 0.5s ease-out;
-  }
-
-  /* Define o movimento de deslizar */
-  @keyframes slideUp {
-    from {
-      bottom: -100px; /* Começa fora do ecrã, em baixo */
-      opacity: 0;
     }
-    to {
-      bottom: 20px; /* Sobe para a posição final */
-      opacity: 1;
-    }
-  }
-</style>
+  </script>
 
-<div id="ios-prompt">
-  <p style="margin: 0; font-size: 14px; line-height: 1.4;">
-    <strong>Instala no teu iPhone:</strong><br>
-    Clica em  <strong>...</strong>  escolhe <strong>Partilhar</strong> depois <strong>Ver mais</strong> e <strong>Adicionar ao ecrã Principal.</strong>.
-  </p>
-  <button onclick="document.getElementById('ios-prompt').style.display='none'" style="margin-top: 10px; border: none; background: #8b0000; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Fechar</button>
-</div>
+  <div id="ios-prompt">
+    <p style="margin: 0; font-size: 14px; line-height: 1.4;">
+      <strong>Instala no teu iPhone:</strong><br>
+      Clica em <strong>...</strong> escolhe <strong>Partilhar</strong> depois <strong>Ver mais</strong> e <strong>Adicionar ao ecrã Principal.</strong>
+    </p>
+    <button id="close-ios-prompt" style="margin-top: 10px; border: none; background: #8b0000; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Fechar</button>
+  </div>
+
   <script>
-  // 1. Verificar se é um dispositivo iOS
-  const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    // Lógica do Prompt iOS com Memória (LocalStorage)
+    const iosPrompt = document.getElementById('ios-prompt');
+    const closeBtn = document.getElementById('close-ios-prompt');
 
-  // 2. Verificar se a app NÃO está aberta no modo "App" (ou seja, está no navegador)
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+    const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+    // Verifica se o utilizador já fechou o aviso anteriormente
+    const isPromptDismissed = localStorage.getItem('iosPromptDismissed');
 
-  // 3. Se for iOS e estiver no navegador, mostrar o aviso
-  if (isIos && !isStandalone) {
-    document.getElementById('ios-prompt').style.display = 'block';
-  }
-</script>
+    if (isIos && !isStandalone && !isPromptDismissed) {
+      iosPrompt.style.display = 'block';
+    }
 
+    closeBtn.onclick = function() {
+      iosPrompt.style.display = 'none';
+      // Guarda a preferência para não mostrar mais
+      localStorage.setItem('iosPromptDismissed', 'true');
+    };
+  </script>
 
   <button id="backToTop" onclick="scrollToTop()">
     <i class="fa-solid fa-arrow-up"></i>
@@ -317,6 +315,7 @@
   </div>
 
   <script>
+    // Scroll to Top
     const btt = document.getElementById("backToTop");
     window.onscroll = function() {
       if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
@@ -329,6 +328,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    // Lógica das Categorias
     document.addEventListener('DOMContentLoaded', function() {
       const buttons = document.querySelectorAll('.cat-btn');
       buttons.forEach(btn => {

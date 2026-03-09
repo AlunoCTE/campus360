@@ -17,7 +17,7 @@
       --text-dark: #333;
     }
 
-    /* Cabeçalho */
+    /* Header */
     .header { 
       display: flex;
       flex-direction: column;
@@ -63,7 +63,7 @@
     .cat-btn.active { background-color: #ffffff; border-color: var(--aec-red); }
     .cat-btn.active i.main-icon, .cat-btn.active span { color: var(--aec-red); }
 
-    /* Conteúdo das Categorias */
+    /* Conteúdo Expandido */
     .category-content {
       display: none;
       grid-column: 1 / -1; 
@@ -91,10 +91,11 @@
     
     .card h3 { font-size: 0.8rem !important; font-weight: 600; margin: 0 0 2px 0 !important; } 
     .card p { font-size: 0.75rem; line-height: 1.2; margin: 0 !important; }   
-    .card .icon i { font-size: 1rem; }                  
+    .card .icon i { font-size: 1rem; }                 
 
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+    /* Botão Voltar ao Topo */
     #backToTop {
       position: fixed;
       bottom: 20px;
@@ -113,44 +114,22 @@
       opacity: 0.7;
     }
 
-    /* --- ALTERAÇÃO NO RODAPÉ --- */
-    /* Usamos 'body .footer' para garantir prioridade sobre o style.css externo */
+    /* --- RODAPÉ COM DOIS LOGOS --- */
     body .footer { 
       display: flex !important; 
-      flex-direction: row !important;
       justify-content: space-between !important; 
       align-items: center !important;
-      padding: 20px 20px 40px 20px !important; 
-      border-top: none !important;
-      background: transparent !important;
-      width: 100% !important;
-      box-sizing: border-box !important;
+      padding: 25px 20px 40px 20px !important; 
+      border-top: none !important; 
+      width: 100%;
+      box-sizing: border-box;
     }
+    /* Ajuste para que os logos tenham o mesmo peso visual */
+    body .footer img { height: 45px !important; width: auto !important; opacity: 1 !important; }
 
-    body .footer a {
-      display: block !important;
-      text-decoration: none !important;
-    }
-
-    body .footer img { 
-      height: 35px !important; /* Altura fixa para garantir que aparece */
-      width: auto !important;
-      max-width: 140px !important;
-      opacity: 1 !important;
-      display: block !important;
-      visibility: visible !important;
-    }
-
-    /* Responsividade */
-    @media (min-width: 600px) {
-      .categories-grid { grid-template-columns: repeat(3, 110px); max-width: 400px; }
-      .grid { grid-template-columns: repeat(2, 1fr); } 
-      body .footer img { height: 45px !important; }
-    }
-
-    /* iOS Prompt */
+    /* iOS Prompt Style */
     #ios-prompt {
-      display: none; 
+      display: none;
       position: fixed;
       bottom: 20px;
       left: 50%;
@@ -160,25 +139,33 @@
       background: white;
       color: black;
       padding: 15px;
-      border-radius: 16px; 
+      border-radius: 16px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       z-index: 9999;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       border: 1px solid rgba(0,0,0,0.1);
       animation: slideUp 0.5s ease-out;
     }
-    @keyframes slideUp { from { bottom: -100px; opacity: 0; } to { bottom: 20px; opacity: 1; } }
+
+    @keyframes slideUp {
+      from { bottom: -100px; opacity: 0; }
+      to { bottom: 20px; opacity: 1; }
+    }
+
+    @media (min-width: 600px) {
+      .categories-grid { grid-template-columns: repeat(3, 110px); max-width: 400px; }
+      .grid { grid-template-columns: repeat(2, 1fr); } 
+    }
   </style>
 </head>
 
 <body>
-  
   <div id="ios-prompt">
     <p style="margin: 0; font-size: 14px; line-height: 1.4;">
       <strong>Instala no teu iPhone:</strong><br>
-      Clica em <strong>...</strong> escolhe <strong>Partilhar</strong> depois <strong>ver mais</strong> e <strong>"Adicionar ao ecrã Principal"</strong>.
+      Clica em <strong>...</strong> escolhe <strong>Partilhar</strong> depois <strong>ver mais</strong> e <strong>Adicionar ao ecrã Principal.</strong>.
     </p>
-    <button onclick="document.getElementById('ios-prompt').style.display='none'" style="margin-top: 10px; border: none; background: #8b0000; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Fechar</button>
+    <button onclick="document.getElementById('ios-prompt').style.display='none'" style="margin-top: 10px; border: none; background: #8b0000; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer; width: 100%;">Fechar</button>
   </div>
 
   <button id="backToTop" onclick="scrollToTop()">
@@ -192,6 +179,7 @@
     </header>
 
     <main class="categories-grid">
+      
       <div class="category-block">
         <div class="cat-btn" data-target="entrada">
           <i class="fa-solid fa-map-location-dot main-icon"></i>
@@ -199,21 +187,99 @@
         </div>
       </div>
 
+      <div class="category-block">
+        <div class="cat-btn" data-target="direcao">
+          <i class="fa-solid fa-file-signature main-icon"></i>
+          <span>direção e secretaria</span>
+        </div>
+      </div>
+
       <div id="entrada" class="category-content">
         <div class="grid">
           <a class="card" href="salas/atrio.html"><div class="icon"><i class="fa-solid fa-school"></i></div><div><h3>Átrio</h3><p>É aqui que tudo começa.</p></div></a>
+          <a class="card" href="salas/reprografia.html"><div class="icon"><i class="fa-solid fa-print"></i></div><div><h3>Reprografia</h3><p>Onde as ideias passam para o papel.</p></div></a>
+          <a class="card" href="salas/biblioteca.html"><div class="icon"><i class="fa-solid fa-book-open"></i></div><div><h3>Biblioteca</h3><p>Um mundo de conhecimento.</p></div></a>
         </div>
       </div>
-      
-      </main>
+
+      <div id="direcao" class="category-content">
+        <div class="grid">
+          <a class="card" href="salas/direcao.html"><div class="icon"><i class="fa-solid fa-user-tie"></i></div><div><h3>Direção</h3><p>Gestão e coordenação escolar.</p></div></a>
+          <a class="card" href="salas/secretaria.html"><div class="icon"><i class="fa-solid fa-folder-open"></i></div><div><h3>Secretaria</h3><p>Apoio administrativo e documental.</p></div></a>
+        </div>
+      </div>
+
+      <div class="category-block">
+        <div class="cat-btn" data-target="salas">
+          <i class="fa-solid fa-chalkboard-user main-icon"></i>
+          <span>salas e laboratórios</span>
+        </div>
+      </div>
+
+      <div class="category-block">
+        <div class="cat-btn" data-target="oficinas">
+          <i class="fa-solid fa-tools main-icon"></i>
+          <span>oficinas</span>
+        </div>
+      </div>
+
+      <div id="salas" class="category-content">
+        <div class="grid">
+          <a class="card" href="salas/salas.html"><div class="icon"><i class="fa-solid fa-user-graduate"></i></div><div><h3>Salas de aula</h3><p>Onde se constrói o futuro.</p></div></a>
+          <a class="card" href="salas/laboratorio-fq.html"><div class="icon"><i class="fa-solid fa-flask"></i></div><div><h3>Laboratório FQ</h3><p>Aqui faz-se magia.</p></div></a>
+          <a class="card" href="salas/laboratorio-cn.html"><div class="icon"><i class="fa-solid fa-microscope"></i></div><div><h3>Laboratório CN</h3><p>Onde a ciência acontece.</p></div></a>
+          <a class="card" href="salas/salas-cte.html"><div class="icon"><i class="fa-solid fa-microchip"></i></div><div><h3>Salas CTE</h3><p>O Centro da Inovação Tecnológica.</p></div></a>
+        </div>
+      </div>
+
+      <div id="oficinas" class="category-content">
+        <div class="grid">
+          <a class="card" href="salas/oficina-informatica.html"><div class="icon"><i class="fa-solid fa-computer"></i></div><div><h3>Oficina de Informática</h3><p>Tecnologia em ação.</p></div></a>
+          <a class="card" href="salas/oficina-multimedia.html"><div class="icon"><i class="fa-solid fa-photo-film"></i></div><div><h3>Oficina Multimédia</h3><p>Criatividade em modo ON.</p></div></a>
+          <a class="card" href="salas/oficina-traco.html"><div class="icon"><i class="fa-solid fa-pen-ruler"></i></div><div><h3>Oficina do Traço</h3><p>Desenho e projeto técnico.</p></div></a>
+          <a class="card" href="salas/oficina-eletricidade.html"><div class="icon"><i class="fa-solid fa-bolt"></i></div><div><h3>Oficina de Eletricidade</h3><p>Energia e sistemas elétricos.</p></div></a>
+        </div>
+      </div>
+
+      <div class="category-block">
+        <div class="cat-btn" data-target="social">
+          <i class="fa-solid fa-utensils main-icon"></i>
+          <span>convívio e lazer</span>
+        </div>
+      </div>
+
+      <div class="category-block">
+        <div class="cat-btn" data-target="desporto">
+          <i class="fa-solid fa-medal main-icon"></i>
+          <span>desporto e exterior</span>
+        </div>
+      </div>
+
+      <div id="social" class="category-content">
+        <div class="grid">
+          <a class="card" href="salas/bar.html"><div class="icon"><i class="fa-solid fa-mug-hot"></i></div><div><h3>Bar</h3><p>Local de conversas, risos e lanches.</p></div></a>
+          <a class="card" href="salas/cantina.html"><div class="icon"><i class="fa-solid fa-utensils"></i></div><div><h3>Cantina</h3><p>Pausa para carregar energias.</p></div></a>
+          <a class="card" href="salas/auditorio.html"><div class="icon"><i class="fa-solid fa-microphone-lines"></i></div><div><h3>Auditório</h3><p>O palco das grandes ideias.</p></div></a>
+        </div>
+      </div>
+
+      <div id="desporto" class="category-content">
+        <div class="grid">
+          <a class="card" href="salas/ginasio.html"><div class="icon"><i class="fa-solid fa-dumbbell"></i></div><div><h3>Ginásio</h3><p>Força, treino e superação.</p></div></a>
+          <a class="card" href="salas/campos.html"><div class="icon"><i class="fa-solid fa-tree"></i></div><div><h3>Campos</h3><p>Respira, convive e aproveita.</p></div></a>
+          <a class="card" href="salas/campo-polidesportivo.html"><div class="icon"><i class="fa-solid fa-basketball"></i></div><div><h3>Polidesportivo</h3><p>O jogo começa aqui.</p></div></a>
+        </div>
+      </div>
+
+    </main>
 
     <footer class="footer">
-      <a href="https://www.aecister.pt" target="_blank">
-        <img src="assets/images/logo_Agr.png" alt="AECISTER">
-      </a>
-
       <a href="#">
         <img src="assets/images/logo_cte.png" alt="Logo CTE">
+      </a>
+      
+      <a href="https://www.aecister.pt" target="_blank">
+        <img src="assets/images/logo_Agr.png" alt="AECISTER">
       </a>
     </footer>
   </div>
@@ -240,7 +306,7 @@
       document.getElementById('ios-prompt').style.display = 'block';
     }
 
-    // Scroll to Top
+    // Back to Top
     const btt = document.getElementById("backToTop");
     window.onscroll = function() {
       if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
@@ -253,7 +319,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Botões de Categoria
+    // Category Buttons Logic
     document.addEventListener('DOMContentLoaded', function() {
       const buttons = document.querySelectorAll('.cat-btn');
       buttons.forEach(btn => {
@@ -265,7 +331,7 @@
           buttons.forEach(b => b.classList.remove('active'));
           document.querySelectorAll('.category-content').forEach(c => c.classList.remove('active'));
 
-          if (!wasActive && targetContent) {
+          if (!wasActive) {
             this.classList.add('active');
             targetContent.classList.add('active');
             setTimeout(() => {

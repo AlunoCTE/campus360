@@ -95,7 +95,7 @@
   
   <script>
     // 1. Configuração do Vídeo e Info
-    const infoLaboratorio-cn = {
+    const infoLaboratorioCN = {
         title: "laboratorio-cn",
         text: "Bem-vindo! Este é o ponto de partida da tua visita virtual. A partir daqui podes explorar os diferentes espaços da escola e descobrir onde os alunos aprendem, criam e convivem. A tua história começa aqui. O campus espera por ti! Preparado...? Um clique… e estás dentro!",
         video: "../assets/videos/laboratorio-cn.mp4"
@@ -122,8 +122,8 @@
             // Ao clicar no 'i'
             infoBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
-                document.getElementById('modal-title').innerText = infoLaboratorio-cn.title;
-                document.getElementById('modal-text').innerText = infoLaboratorio-cn.text;
+                document.getElementById('modal-title').innerText = infoLaboratorioCN.title;
+                document.getElementById('modal-text').innerText = infoLaboratorioCN.text;
                 document.getElementById('modal-backdrop').style.display = 'flex';
             });
         }

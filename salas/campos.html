@@ -6,57 +6,149 @@
   <title>Campos — ESDICA 360</title>
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+  <style>
+    :root {
+      --cor-logo: #8B0000; /* Cor Grená do Logo */
+    }
+
+    #panorama {
+      width: 100%;
+      height: 600px;
+    }
+
+    /* Estilo do botão 'i' para se integrar nos controlos do Pannellum */
+    .pnlm-info-btn {
+      width: 26px;
+      height: 26px;
+      background: var(--cor-logo) !important;
+      border-radius: 3px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white !important;
+      font-family: "Times New Roman", serif;
+      font-weight: bold;
+      font-style: italic;
+      font-size: 18px;
+      border: 1px solid rgba(255,255,255,0.4);
+      margin-top: 2px;
+      pointer-events: all !important;
+    }
+
+    /* Garante que o grupo de botões (zoom e full) se mantém unido e o 'i' fica por baixo */
+    .pnlm-controls-container {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-end !important;
+    }
+
+    /* Ajuste visual para a modal estar acima de tudo */
+    .modal-backdrop { z-index: 3000 !important; }
+    .video-overlay { z-index: 4000 !important; }
+  </style>
 </head>
 <body>
-<div class="container">
-  <header class="header">
-    <a href="../index.html"><img src="../assets/images/logo.png" alt="Logo" class="logo"/></a>
-    <div>
-      <div class="title">ESDICA 360</div>
-      <div class="subtitle">Campos</div>
+  <div class="container">
+    <header class="header">
+      <a href="../index.html"><img src="../assets/images/logo.png" alt="Logo" class="logo"/></a>
+      <div>
+        <div class="title">ESDICA 360</div>
+        <div class="subtitle">Campos</div>
+      </div>
+    </header>
+
+    <section class="viewer-wrap">
+      <div id="panorama"></div>
+    </section>
+
+    <div class="room-header">
+      <h2></h2>
+      <div><a href="../index.html" class="btn">Voltar</a></div>
     </div>
-  </header>
 
-  <section class="viewer-wrap">
-    <div id="panorama"></div>
-  </section>
-
-  <div class="room-header">
-    <h2>Campos</h2>
-    <div><a href="../index.html" class="btn">Voltar</a></div>
+    <footer class="footer">
+      <a href="https://www.aecister.pt" target="_blank" rel="noopener noreferrer">
+        <img src="../assets/images/logo_Agr.png" alt="AECISTER" style="height:30px;">
+      </a>
+    </footer>
   </div>
 
- <footer class="footer">
-        <a href="https://www.aecister.pt" target="_blank" rel="noopener noreferrer">
-    <img src="assets/images/logo_Agr.png" alt="AECISTER" style="height:30px;">
-  </a>
-      </footer>
-</div>
-
-<div id="modal-backdrop" class="modal-backdrop" role="dialog" aria-hidden="true">
-  <div class="modal" role="document">
-    <button id="modal-close" style="float:right;border:none;background:none;font-size:20px;cursor:pointer">✕</button>
-    <h2 id="modal-title">Título</h2>
-    <p id="modal-text">Descrição</p>
-    <div style="text-align:right">
-      <button id="modal-video-btn" class="btn" disabled>Ver Vídeo</button>
+  <div id="modal-backdrop" class="modal-backdrop" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); align-items:center; justify-content:center;">
+    <div class="modal" style="background:white; padding:20px; border-radius:8px; max-width:500px; width:90%; position:relative;">
+      <button id="modal-close" style="position:absolute; right:10px; top:10px; border:none; background:none; font-size:20px; cursor:pointer">✕</button>
+      <h2 id="modal-title">Título</h2>
+      <p id="modal-text" style="margin: 15px 0;">Descrição</p>
+      <div style="text-align:right">
+        <button id="modal-video-btn" class="btn">Ver Vídeo</button>
+      </div>
     </div>
   </div>
-</div>
 
-<div id="video-overlay" class="video-overlay" role="dialog" aria-hidden="true">
-  <button id="video-close" style="position:absolute;z-index:130;right:14px;top:14px;padding:8px 12px;border-radius:8px;background:rgba(255,255,255,0.9);border:none;cursor:pointer">Fechar</button>
-  <video id="overlay-video" controls playsinline></video>
-</div>
+  <div id="video-overlay" class="video-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; z-index:5000; align-items:center; justify-content:center;">
+    <button id="video-close" style="position:absolute; right:20px; top:20px; padding:10px 20px; background:white; border:none; border-radius:5px; cursor:pointer; z-index:5100;">Fechar Vídeo</button>
+    <video id="overlay-video" controls style="max-width:90%; max-height:80%;"></video>
+  </div>
 
-<script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
-<script src="../assets/js/script.js"></script>
-<script>
-  const hotspots = [
-    {"pitch":2,"yaw":20,"type":"custom","createTooltipFunc":hotspotRenderer,
-     "createTooltipArgs":{"title":"Campos","text":"Informação sobre os Campos","icon":"i","video":"../assets/videos/campos.mp4"}}
-  ];
-  initViewer("../assets/panoramas/campos.jpg", hotspots);
-</script>
+  <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+  <script src="../assets/js/script.js"></script>
+  
+  <script>
+    // 1. Configuração do Vídeo e Info
+    const infoCampos = {
+        title: "Campos",
+        text: "Bem-vindo! Este é o ponto de partida da tua visita virtual. A partir daqui podes explorar os diferentes espaços da escola e descobrir onde os alunos aprendem, criam e convivem. A tua história começa aqui. O campus espera por ti! Preparado...? Um clique… e estás dentro!",
+        video: "../assets/videos/campos.mp4"
+    };
+
+    // 2. Inicialização do Pannellum
+    const viewer = pannellum.viewer('panorama', {
+        "type": "equirectangular",
+        "panorama": "../assets/panoramas/campos.jpg",
+        "autoLoad": true,
+        "showControls": true
+    });
+
+    // 3. Inserir o botão 'i' e configurar cliques
+    viewer.on('load', function() {
+        const ctrlContainer = document.querySelector('.pnlm-controls-container');
+        
+        if (ctrlContainer && !document.querySelector('.pnlm-info-btn')) {
+            const infoBtn = document.createElement('div');
+            infoBtn.className = 'pnlm-info-btn';
+            infoBtn.innerHTML = 'i';
+            ctrlContainer.appendChild(infoBtn);
+
+            // Ao clicar no 'i'
+            infoBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                document.getElementById('modal-title').innerText = infoCampos.title;
+                document.getElementById('modal-text').innerText = infoCampos.text;
+                document.getElementById('modal-backdrop').style.display = 'flex';
+            });
+        }
+    });
+
+    // 4. Lógica do Botão de Vídeo (DENTRO DA MODAL)
+    document.getElementById('modal-video-btn').addEventListener('click', function() {
+        const video = document.getElementById('overlay-video');
+        const overlay = document.getElementById('video-overlay');
+        
+        video.src = infoCampos.video;
+        overlay.style.display = 'flex';
+        video.play();
+    });
+
+    // 5. Fechar Modal e Vídeo
+    document.getElementById('modal-close').onclick = function() {
+        document.getElementById('modal-backdrop').style.display = 'none';
+    };
+
+    document.getElementById('video-close').onclick = function() {
+        const video = document.getElementById('overlay-video');
+        video.pause();
+        document.getElementById('video-overlay').style.display = 'none';
+    };
+  </script>
 </body>
 </html>

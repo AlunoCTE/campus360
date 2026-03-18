@@ -32,7 +32,7 @@
     .logo { height: 75px; width: auto; margin-bottom: 2px; }
     .title { color: var(--aec-red); font-weight: 700; font-size: 1.3rem; margin: 0; line-height: 1; }
 
-    /* Grid de Categorias - Quadrados Compactos */
+    /* Grid de Categorias */
     .categories-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -63,7 +63,6 @@
     .cat-btn.active { background-color: #ffffff; border-color: var(--aec-red); }
     .cat-btn.active i.main-icon, .cat-btn.active span { color: var(--aec-red); }
 
-    /* Conteúdo Expandido */
     .category-content {
       display: none;
       grid-column: 1 / -1; 
@@ -76,7 +75,6 @@
     }
     .category-content.active { display: block; }
 
-    /* Ajuste da Grelha Interna */
     .grid { 
       display: grid; 
       grid-template-columns: 1fr; 
@@ -85,7 +83,6 @@
       padding: 0 !important;
     }
     
-    /* Cartões Individuais */
     .card {
       margin: 0 !important;
       padding: 10px !important;
@@ -97,7 +94,6 @@
 
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-    /* Botão Voltar ao Topo */
     #backToTop {
       position: fixed;
       bottom: 20px;
@@ -116,24 +112,39 @@
       opacity: 0.7;
     }
 
-    /* Rodapé Atualizado */
+    /* RODAPÉ ATUALIZADO */
     .footer { 
       display: flex; 
+      flex-direction: column; /* Coloca o logo por cima do texto */
       align-items: center;
       justify-content: center; 
-      padding: 20px 0 40px 0; 
+      padding: 30px 0 50px 0; 
       border-top: none !important;
-      gap: 10px;
-      color: #666;
-      font-size: 0.85rem;
-    }
-    .footer img { 
-      height: 40px; /* Ajuste o tamanho conforme necessário */
-      width: auto;
-      opacity: 1 !important; 
+      gap: 8px;
     }
 
-    /* Prompt iOS Customizado */
+    .footer a {
+      text-decoration: none;
+      transition: transform 0.2s ease;
+    }
+
+    .footer a:hover {
+      transform: scale(1.05);
+    }
+
+    .footer img { 
+      height: 50px; /* Logo um pouco maior para destaque */
+      width: auto;
+      display: block;
+    }
+
+    .footer span {
+      color: var(--aec-red); /* Cor vermelha do site */
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* Prompt iOS */
     #ios-prompt {
       display: none;
       position: fixed;
@@ -217,7 +228,6 @@
     </header>
 
     <main class="categories-grid">
-      
       <div class="category-block">
         <div class="cat-btn" data-target="entrada">
           <i class="fa-solid fa-map-location-dot main-icon"></i>
@@ -308,12 +318,13 @@
           <a class="card" href="salas/campo-polidesportivo.html"><div class="icon"><i class="fa-solid fa-basketball"></i></div><div><h3>Polidesportivo</h3><p>O jogo começa aqui.</p></div></a>
         </div>
       </div>
-
     </main>
 
     <footer class="footer">
-      <span>Powered by</span>
-      <img src="assets/images/logo_clube.png" alt="Logo Clube CTE">
+      <a href="https://cteesdica.my.canva.site/clube-cte" target="_blank">
+        <img src="assets/images/logo_cte.png" alt="Logo Clube CTE">
+      </a>
+      <span>Powered by Clube CTE</span>
     </footer>
   </div>
 

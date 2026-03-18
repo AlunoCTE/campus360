@@ -112,36 +112,25 @@
       opacity: 0.7;
     }
 
-    /* RODAPÉ ATUALIZADO */
+    /* RODAPÉ AJUSTADO */
     .footer { 
       display: flex; 
-      flex-direction: column; /* Coloca o logo por cima do texto */
       align-items: center;
       justify-content: center; 
-      padding: 30px 0 50px 0; 
+      padding: 20px 0 40px 0; 
       border-top: none !important;
-      gap: 8px;
+      font-size: 0.9rem;
+      color: #666; /* Cor cinza suave para o "Powered by" */
     }
 
     .footer a {
+      color: var(--aec-red); /* Cor vermelha do site para o link */
       text-decoration: none;
-      transition: transform 0.2s ease;
+      margin-left: 4px; /* Espaço entre o texto e o link */
     }
 
     .footer a:hover {
-      transform: scale(1.05);
-    }
-
-    .footer img { 
-      height: 50px; /* Logo um pouco maior para destaque */
-      width: auto;
-      display: block;
-    }
-
-    .footer span {
-      color: var(--aec-red); /* Cor vermelha do site */
-      font-weight: 600;
-      font-size: 0.9rem;
+      text-decoration: underline;
     }
 
     /* Prompt iOS */
@@ -321,10 +310,7 @@
     </main>
 
     <footer class="footer">
-      <a href="https://cteesdica.my.canva.site/clube-cte" target="_blank">
-        <img src="assets/images/logo_cte.png" alt="Logo Clube CTE">
-      </a>
-      <span>Powered by Clube CTE</span>
+      <span>Powered by <a href="https://cteesdica.my.canva.site/clube-cte" target="_blank"><strong>Clube CTE</strong></a></span>
     </footer>
   </div>
 

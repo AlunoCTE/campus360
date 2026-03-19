@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Salas de Aula — ESDICA 360</title>
+  <title>Salas — ESDICA 360</title>
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
   <style>
@@ -54,7 +54,7 @@
       <a href="../index.html"><img src="../assets/images/logo.png" alt="Logo" class="logo"/></a>
       <div>
         <div class="title">ESDICA 360</div>
-        <div class="subtitle">Salas de Aula</div>
+        <div class="subtitle">Átrio</div>
       </div>
     </header>
 
@@ -95,18 +95,16 @@
   
   <script>
     // 1. Configuração do Vídeo e Info
-    const infoSalasAula = {
-        title: "Átrio",
-        text: "Espaços de partilha e aprendizagem ativa. onde cada aula é uma nova oportunidade.
-
-",
-        video: "../assets/videos/salas-aula.mp4"
+    const infoSalas = {
+        title: "Salas de aula",
+        text: "Espaços de partilha e aprendizagem ativa. Onde cada aula é uma nova oportunidade.",
+        video: "../assets/videos/salas.mp4"
     };
 
     // 2. Inicialização do Pannellum
     const viewer = pannellum.viewer('panorama', {
         "type": "equirectangular",
-        "panorama": "../assets/panoramas/salas-aula.jpg",
+        "panorama": "../assets/panoramas/salas.jpg",
         "autoLoad": true,
         "showControls": true
     });
@@ -124,8 +122,8 @@
             // Ao clicar no 'i'
             infoBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
-                document.getElementById('modal-title').innerText = infoSalasAula.title;
-                document.getElementById('modal-text').innerText = infoSalasAula.text;
+                document.getElementById('modal-title').innerText = infoSalas.title;
+                document.getElementById('modal-text').innerText = infoSalas.text;
                 document.getElementById('modal-backdrop').style.display = 'flex';
             });
         }
@@ -136,7 +134,7 @@
         const video = document.getElementById('overlay-video');
         const overlay = document.getElementById('video-overlay');
         
-        video.src = infosalas-aula.video;
+        video.src = infoSalas.video;
         overlay.style.display = 'flex';
         video.play();
     });

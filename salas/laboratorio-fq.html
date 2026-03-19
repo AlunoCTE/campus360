@@ -54,7 +54,7 @@
       <a href="../index.html"><img src="../assets/images/logo.png" alt="Logo" class="logo"/></a>
       <div>
         <div class="title">ESDICA 360</div>
-        <div class="subtitle">Átrio</div>
+        <div class="subtitle">Laboratório de Física e Química</div>
       </div>
     </header>
 
@@ -95,8 +95,8 @@
   
   <script>
     // 1. Configuração do Vídeo e Info
-    const infoFQ = {
-        title: "Laboratório de Física e Química",
+    const infoLaboratorioFQ = {
+        title: "laboratorio-fq",
         text: "A ciência explica, a prática demonstra. Explora as leis da Física e da Química.",
         video: "../assets/videos/laboratorio-fq.mp4"
     };
@@ -122,8 +122,8 @@
             // Ao clicar no 'i'
             infoBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
-                document.getElementById('modal-title').innerText = infoFQ.title;
-                document.getElementById('modal-text').innerText = infoFQ.text;
+                document.getElementById('modal-title').innerText = infoLaboratorioFQ.title;
+                document.getElementById('modal-text').innerText = infoLaboratorioFQ.text;
                 document.getElementById('modal-backdrop').style.display = 'flex';
             });
         }
@@ -134,7 +134,7 @@
         const video = document.getElementById('overlay-video');
         const overlay = document.getElementById('video-overlay');
         
-        video.src = infoAtrio.video;
+        video.src = infolaboratorio-cn.video;
         overlay.style.display = 'flex';
         video.play();
     });
@@ -152,4 +152,6 @@
   </script>
 </body>
 </html>
+
+
 

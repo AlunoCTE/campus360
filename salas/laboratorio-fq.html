@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Laboratório FQ — ESDICA 360</title>
+  <title>Laboratório de Física e Química — ESDICA 360</title>
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
   <style>
@@ -54,7 +54,7 @@
       <a href="../index.html"><img src="../assets/images/logo.png" alt="Logo" class="logo"/></a>
       <div>
         <div class="title">ESDICA 360</div>
-        <div class="subtitle">Laboratório FQ</div>
+        <div class="subtitle">Átrio</div>
       </div>
     </header>
 
@@ -95,8 +95,8 @@
   
   <script>
     // 1. Configuração do Vídeo e Info
-    const infoLaboratorioFQ = {
-        title: "laboratorio-fq",
+    const infoFQ = {
+        title: "Laboratório de Física e Química",
         text: "A ciência explica, a prática demonstra. Explora as leis da Física e da Química.",
         video: "../assets/videos/laboratorio-fq.mp4"
     };
@@ -122,8 +122,8 @@
             // Ao clicar no 'i'
             infoBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
-                document.getElementById('modal-title').innerText = infoLaboratorioFQ.title;
-                document.getElementById('modal-text').innerText = infoLaboratorioFQ.text;
+                document.getElementById('modal-title').innerText = infoFQ.title;
+                document.getElementById('modal-text').innerText = infoFQ.text;
                 document.getElementById('modal-backdrop').style.display = 'flex';
             });
         }
@@ -134,7 +134,7 @@
         const video = document.getElementById('overlay-video');
         const overlay = document.getElementById('video-overlay');
         
-        video.src = infolaboratorio-fq.video;
+        video.src = infoAtrio.video;
         overlay.style.display = 'flex';
         video.play();
     });
@@ -152,3 +152,4 @@
   </script>
 </body>
 </html>
+

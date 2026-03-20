@@ -12,18 +12,24 @@ const assets = [
   './assets/js/script.js',  
   // Páginas das salas
   './salas/atrio.html',
+  './salas/auditorio.html',
   './salas/bar.html',
   './salas/biblioteca.html',
   './salas/campo-polidesportivo.html',
   './salas/campos.html',
   './salas/cantina.html',
+  './salas/direcao.html',
   './salas/ginasio.html',
   './salas/laboratorio-cn.html',
   './salas/laboratorio-fq.html',
+  './salas/oficina-eletricidade.html',
   './salas/oficina-informatica.html',
   './salas/oficina-multimedia.html',
+  './salas/oficina-traco.html',
   './salas/reprografia.html',
   './salas/salas-cte.html',
+  './salas/sala-desenho.html',
+  './salas/secretaria.html',
   './salas/salas.html'
 ];
 

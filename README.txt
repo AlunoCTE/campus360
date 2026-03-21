@@ -1,12 +1,31 @@
+=========================================
+ESDICA 360 - Visita Virtual PWA
+=========================================
 
----------------------------------------------------
-NÃO ALTERAR NADA!!!  FALAR COM A PROFSSORA CARLA!!!
----------------------------------------------------
+DESCRIÇÃO:
+Aplicação web progressiva para a visita virtual 360º da Escola ESDICA.
+Permite navegação offline e instalação em dispositivos móveis (iOS/Android).
 
+ESTRUTURA DE PASTAS:
+- /assets/css: Estilos da interface.
+- /assets/images: Logótipos e ícones da aplicação.
+- /salas: Ficheiros HTML individuais para cada espaço da escola.
+- index.html: Ponto de entrada e menu principal.
+- sw.js: Service Worker que gere a cache e o modo offline.
+- manifest.json: Configurações de instalação da App.
 
-Campus360 - Instruções
+COMO ATUALIZAR A APP:
+Sempre que forem feitas alterações nos ficheiros (HTML, CSS ou Imagens):
+1. Abrir o ficheiro 'sw.js'.
+2. Alterar a variável 'cacheName' para a versão seguinte (ex: v10 -> v11).
+3. Fazer o Push para o GitHub.
+4. A App atualizará automaticamente no telemóvel dos utilizadores no próximo acesso.
 
-As páginas já estão com o código correto, falta colocar os videos.
+NOTAS TÉCNICAS:
+- Requer HTTPS (fornecido pelo GitHub Pages) para o Service Worker funcionar.
+- O ícone principal deve ter 512x512px para compatibilidade total.
+- Compatível com a funcionalidade "Adicionar ao Ecrã Principal" no iOS Safari.
 
-- Colocar/substituir images/salaX.jpg por imagens 360 (equirectangular).
-- Colocar/substituir vídeos MP4 em videos/salaX.mp4.
+CONTACTO:
+Clube CTE 
+Agrupamento de Escolas de Cister

@@ -1,15 +1,23 @@
 {
   "short_name": "ESDICA 360",
-  "name": "ESDICA 360",
+  "name": "ESDICA 360 - Visita Virtual",
   "icons": [
     {
       "src": "assets/icon.png",
       "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon.png",
+      "sizes": "512x512",
       "type": "image/png"
     }
   ],
-  "start_url": "/campus360/index.html",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "theme_color": "#000000",
+  "orientation": "portrait",
+  "theme_color": "#8b0000",
   "background_color": "#ffffff"
 }

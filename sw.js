@@ -1,4 +1,4 @@
-const cacheName = 'esdica360-v14';
+const cacheName = 'esdica360-v15';
 
 const assets = [
   './',

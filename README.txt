@@ -20,7 +20,7 @@ COMO ATUALIZAR A APP:
 Sempre que forem feitas alterações nos ficheiros (HTML, CSS ou Imagens):
 1. Abrir o ficheiro 'sw.js'.
 2. Alterar a variável 'cacheName' para a versão seguinte (ex: v10 -> v11).
-3. Fazer o Push para o GitHub.
+3. Fazer Commit.
 4. A App atualizará automaticamente no telemóvel dos utilizadores no próximo acesso.
 
 NOTAS TÉCNICAS:

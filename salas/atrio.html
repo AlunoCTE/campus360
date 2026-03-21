@@ -9,6 +9,7 @@
   <style>
     :root {
       --cor-logo: #8B0000; /* Cor Grená do Logo */
+      --cor-desativado: #cccccc;
     }
 
     #panorama {
@@ -16,7 +17,7 @@
       height: 600px;
     }
 
-    /* Estilo do botão 'i' para se integrar nos controlos do Pannellum */
+    /* Estilo do botão 'i' */
     .pnlm-info-btn {
       width: 26px;
       height: 26px;
@@ -36,14 +37,20 @@
       pointer-events: all !important;
     }
 
-    /* Garante que o grupo de botões (zoom e full) se mantém unido e o 'i' fica por baixo */
     .pnlm-controls-container {
       display: flex !important;
       flex-direction: column !important;
       align-items: flex-end !important;
     }
 
-    /* Ajuste visual para a modal estar acima de tudo */
+    /* Estilo para o botão quando não há vídeo */
+    .btn-disabled {
+      background-color: var(--cor-desativado) !important;
+      color: #666 !important;
+      cursor: not-allowed !important;
+      opacity: 0.8;
+    }
+
     .modal-backdrop { z-index: 3000 !important; }
     .video-overlay { z-index: 4000 !important; }
   </style>
@@ -91,14 +98,14 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
-  <script src="../assets/js/script.js"></script>
   
   <script>
     // 1. Configuração do Vídeo e Info
+    // DICA: Se deixares o campo video vazio "", o botão desativa-se automaticamente
     const infoAtrio = {
         title: "Átrio",
         text: "Bem-vindo! Este é o ponto de partida da tua visita virtual. A partir daqui podes explorar os diferentes espaços da escola e descobrir onde os alunos aprendem, criam e convivem. A tua história começa aqui. O campus espera por ti! Preparado...? Um clique… e estás dentro!",
-        video: "../assets/videos/atrio.mp4"
+        video: "" // Exemplo: "" para indisponível ou "../assets/videos/atrio.mp4" para disponível
     };
 
     // 2. Inicialização do Pannellum
@@ -122,8 +129,22 @@
             // Ao clicar no 'i'
             infoBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
+                
+                const modalBtn = document.getElementById('modal-video-btn');
                 document.getElementById('modal-title').innerText = infoAtrio.title;
                 document.getElementById('modal-text').innerText = infoAtrio.text;
+                
+                // LÓGICA DE VERIFICAÇÃO DO VÍDEO
+                if (!infoAtrio.video || infoAtrio.video.trim() === "") {
+                    modalBtn.innerText = "Vídeo brevemente disponível";
+                    modalBtn.classList.add('btn-disabled');
+                    modalBtn.disabled = true;
+                } else {
+                    modalBtn.innerText = "Ver Vídeo";
+                    modalBtn.classList.remove('btn-disabled');
+                    modalBtn.disabled = false;
+                }
+
                 document.getElementById('modal-backdrop').style.display = 'flex';
             });
         }
@@ -131,6 +152,8 @@
 
     // 4. Lógica do Botão de Vídeo (DENTRO DA MODAL)
     document.getElementById('modal-video-btn').addEventListener('click', function() {
+        if (this.disabled) return; // Segurança extra
+
         const video = document.getElementById('overlay-video');
         const overlay = document.getElementById('video-overlay');
         

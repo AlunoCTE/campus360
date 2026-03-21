@@ -1,4 +1,4 @@
-const cacheName = 'esdica360-v11';
+const cacheName = 'esdica360-v12';
 
 const assets = [
   './',
@@ -7,9 +7,39 @@ const assets = [
   './sw.js',
   './README.txt',
   './assets/icon.png',
-  // Verificar se estes nomes abaixo estão corretos ou se falta alguma sala:
   './assets/css/style.css', 
   './assets/js/script.js',  
+  
+  // Imagens da pasta assets/images
+  './assets/images/esdica_home.jpg',
+  './assets/images/logo.png',
+  './assets/images/logo_.png',
+  './assets/images/logo_Agr.png',
+  './assets/images/logo_clube.png',
+  './assets/images/logo_cte.png',
+
+  // Panoramas (Pastas assets/panoramas)
+  './assets/panoramas/OficinaTraco.jpg',
+  './assets/panoramas/atrio.jpg',
+  './assets/panoramas/auditorio.jpg',
+  './assets/panoramas/bar.jpg',
+  './assets/panoramas/campos.jpg',
+  './assets/panoramas/cantina.jpg',
+  './assets/panoramas/direcao.jpg',
+  './assets/panoramas/ginasio.jpg',
+  './assets/panoramas/laboratorio-cn.jpg',
+  './assets/panoramas/laboratorio-fq.jpg',
+  './assets/panoramas/oficina_eletricidade.jpg',
+  './assets/panoramas/oficina_informatica.jpg',
+  './assets/panoramas/oficina_multimedia.jpg',
+  './assets/panoramas/pavilhao.jpg',
+  './assets/panoramas/polidesportivo.jpg',
+  './assets/panoramas/reprografia.jpg',
+  './assets/panoramas/sala-desenho.jpg',
+  './assets/panoramas/salas-cte.jpg',
+  './assets/panoramas/salas.jpg',
+  './assets/panoramas/secretaria.jpg',
+  
   // Páginas das salas
   './salas/atrio.html',
   './salas/auditorio.html',

@@ -3,12 +3,14 @@ ESDICA 360 - Visita Virtual PWA
 =========================================
 
 DESCRIÇÃO:
-Aplicação web progressiva para a visita virtual 360º da Escola ESDICA.
+Aplicação web progressiva para a visita virtual 360º da ESDICA.
 Permite navegação offline e instalação em dispositivos móveis (iOS/Android).
 
 ESTRUTURA DE PASTAS:
 - /assets/css: Estilos da interface.
 - /assets/images: Logótipos e ícones da aplicação.
+- /assets/panoramas: Fotografias 360.
+- /assets/videos: Vídeos.
 - /salas: Ficheiros HTML individuais para cada espaço da escola.
 - index.html: Ponto de entrada e menu principal.
 - sw.js: Service Worker que gere a cache e o modo offline.
